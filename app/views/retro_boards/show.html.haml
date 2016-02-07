@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @retro_board.name
+%p
+  %b Project:
+  = @retro_board.project_id
+
+= link_to 'Edit', edit_retro_board_path(@retro_board)
+\|
+= link_to 'Back', retro_boards_path

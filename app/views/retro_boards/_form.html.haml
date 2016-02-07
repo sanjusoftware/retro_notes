@@ -1,0 +1,32 @@
+.row
+  .col-md-12
+    .box
+      .box-header.with-border
+        %h3.box-title New Board
+      = form_for [current_user, @retro_board], :html => {:class => 'form-horizontal', :multipart => true} do |f|
+        - if @retro_board.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@retro_board.errors.count, 'error')} prohibited this event from being saved:"
+            %ul
+              - @retro_board.errors.full_messages.each do |msg|
+                %li= msg
+
+        .box-body
+          .form-group.required
+            = f.label :name, :class => 'col-sm-2 control-label'
+            .col-sm-10
+              = f.text_field :name, :class => 'form-control', :placeholder => 'Name', :required => 'true'
+          .form-group.required
+            = f.label :project, :class => 'col-sm-2 control-label'
+            .col-sm-10
+              .row
+                .col-sm-6
+                  - if current_user.projects.present?
+                    = f.select :project, current_user.projects.all.collect { |p| [ p.name, p.id ] }, {include_blank: true}, {:class => 'form-control we_select select2'}
+                    OR
+              .row
+                .col-sm-6
+                  = f.text_field :new_project_name, :class => 'form-control', :placeholder => 'New Project'
+        .box-footer
+          = link_to 'Cancel', root_path, :class => 'btn btn-default'
+          = f.submit 'Save', :class => 'btn btn-info pull-right'

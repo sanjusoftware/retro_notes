@@ -16,5 +16,13 @@
 //= require turbolinks
 //= require jquery.slimscroll
 //= require iCheck
+//= require select2
 //= require app
 //= require_tree .
+
+
+$(document).on('ready page:change', function () {
+
+    $('select.we_select').select2();
+
+});

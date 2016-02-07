@@ -66,6 +66,8 @@ GEM
     execjs (2.5.2)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -183,6 +185,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    select2-rails (3.5.9.3)
+      thor (~> 0.14)
     sexp_processor (4.6.0)
     slop (3.6.0)
     sprockets (2.12.4)
@@ -218,6 +222,7 @@ DEPENDENCIES
   adminlte2-rails
   coffee-rails (~> 4.0.0)
   devise
+  friendly_id (~> 5.1.0)
   haml-rails
   jbuilder (~> 1.2)
   jquery-rails
@@ -230,6 +235,7 @@ DEPENDENCIES
   rename
   sass-rails (~> 4.0.0)
   sdoc
+  select2-rails
   sqlite3
   therubyracer
   turbolinks

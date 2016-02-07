@@ -1,2 +1,6 @@
-%h1 Welcome#index
-%p Find me in app/views/welcome/index.html.haml
+- if @retro_board.present?
+  %h1
+    = @retro_board.name
+- else
+  %p
+    = link_to 'New Retro Board', new_user_retro_board_path(current_user)
