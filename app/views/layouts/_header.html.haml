@@ -106,7 +106,7 @@
             %ul.dropdown-menu
               / The user image in the menu
               %li.user-header
-                = image_tag(current_user.profile_photo, class: 'img-circle')
+                = image_tag(current_user.profile_photo.gsub('sz=50', 'sz=160'), class: 'img-circle')
                 %p
                   = "#{current_user.full_name.titleize} - Web Developer"
                   %small
@@ -122,9 +122,9 @@
               / Menu Footer
               %li.user-footer
                 .pull-left
-                  %a.btn.btn-default.btn-flat{:href => "#"} Profile
+                  %a.btn.btn-default.btn-flat{:href => '#'} Profile
                 .pull-right
                   = link_to 'Sign out', destroy_user_session_path, :method => :delete, class: 'btn btn-default btn-flat'
         %li
-          %a{"data-toggle" => "control-sidebar", :href => "#"}
+          %a{'data-toggle' => 'control-sidebar', :href => '#'}
             %i.fa.fa-gears
