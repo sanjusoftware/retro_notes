@@ -27,20 +27,20 @@
       %li.header HEADER
       / Optionally, you can add icons to the links
       %li.active
-        %a{:href => "#"}
-          %i.fa.fa-link
-          %span Link
-      %li
-        %a{:href => "#"}
-          %i.fa.fa-link
-          %span Another Link
-      %li.treeview
-        %a{:href => "#"}
-          %i.fa.fa-link
-          %span Multilevel
-          %i.fa.fa-angle-left.pull-right
-        %ul.treeview-menu
-          %li
-            %a{:href => "#"} Link in level 2
-          %li
-            %a{:href => "#"} Link in level 2
+        = link_to user_retro_boards_path(current_user) do
+          %i.fa.fa-lightbulb-o
+          %span My Retro Boards
+      -#%li
+      -#  %a{:href => "#"}
+      -#    %i.fa.fa-link
+      -#    %span Another Link
+      -#%li.treeview
+      -#  %a{:href => "#"}
+      -#    %i.fa.fa-link
+      -#    %span Multilevel
+      -#    %i.fa.fa-angle-left.pull-right
+      -#  %ul.treeview-menu
+      -#    %li
+      -#      %a{:href => "#"} Link in level 2
+      -#    %li
+      -#      %a{:href => "#"} Link in level 2

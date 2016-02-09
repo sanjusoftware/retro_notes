@@ -2,7 +2,7 @@ class RetroBoardsController < ApplicationController
   before_action :set_retro_board, only: [:show, :edit, :update, :destroy]
 
   def index
-    @retro_boards = RetroBoard.all
+    @retro_boards = RetroBoard.where(project_id: current_user.projects)
   end
 
   def show
