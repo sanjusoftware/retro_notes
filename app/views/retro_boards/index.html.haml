@@ -1,23 +1,28 @@
-%h1 Listing Retro Boards
+%h2 My Retro Boards
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Project
-      %th
-      %th
-      %th
+-#= link_to 'New Retro board', new_user_project_path(current_user)
 
-  %tbody
-    - @retro_boards.each do |retro_board|
-      %tr
-        %td= retro_board.name
-        %td= retro_board.project_id
-        %td= link_to 'Show', user_retro_board_path(current_user, retro_board)
-        %td= link_to 'Edit', edit_user_retro_board_path(current_user, retro_board)
-        %td= link_to 'Destroy', user_retro_board_path(current_user, retro_board), :method => :delete, :data => { :confirm => 'Are you sure?' }
+- @projects.each do |project|
+  .box.box-primary
+    .box-header.ui-sortable-handle{:style => "cursor: move;"}
+      %i.ion.ion-clipboard
+      %h3.box-title
+        = project.name
+      .box-tools.pull-right
+        %button.btn.btn-default.pull-right
+          = link_to new_user_retro_board_path(current_user) do
+            %i.fa.fa-plus
+            Add Board
 
-%br
-
-= link_to 'New Retro board', new_user_retro_board_path(current_user)
+    .box-body
+      %ul.todo-list.ui-sortable
+        - project.retro_boards.each do |retro_board|
+          %li
+            %span.text
+              = link_to retro_board.name, user_retro_board_path(current_user, retro_board)
+            %small.label.label-info
+              %i.fa.fa-clock-o
+              = retro_board.updated_at.strftime('last updated on %m/%d/%Y')
+            .tools
+              %i.fa.fa-edit
+              %i.fa.fa-trash-o
