@@ -19,3 +19,24 @@
 @import "AdminLTE/AdminLTE";
 @import "AdminLTE/skins/skin-black-light";
 
+.skin-black-light .content-wrapper, .skin-black-light .main-footer {
+  border-left: 1px solid #d2d6de;
+  border-top: 1px solid #d2d6de;
+}
+
+.content-wrapper, .right-side {
+  min-height: 100%;
+  background-color: #fff;
+  z-index: 800;
+}
+
+#retro_card {
+  .box-footer {
+    border-top: none;
+    padding: 0 10px 0 0;
+  }
+
+  .plus-one {
+    font-size: 15px;
+  }
+}

@@ -13,7 +13,7 @@
       %script{:src => 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}
       %script{:src => 'https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js'}
       = csrf_meta_tags
-  %body{:class => "skin-black-light sidebar-mini .sidebar-collapse #{params[:controller].parameterize} #{action_name}"}
+  %body{:class => "skin-black-light sidebar-mini sidebar-collapse #{params[:controller].parameterize} #{action_name}"}
     .wrapper
       = render partial: 'layouts/header'
       = render partial: 'layouts/sidebar'

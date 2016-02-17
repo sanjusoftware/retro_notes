@@ -1,6 +1,8 @@
-%h2 My Retro Boards
+%section.content-header
+  %h1
+    My Retro Boards
 
--#= link_to 'New Retro board', new_user_project_path(current_user)
+%br
 
 - @projects.each do |project|
   .box.box-primary
