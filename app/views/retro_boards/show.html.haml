@@ -1,12 +1,30 @@
-%p#notice= notice
+%section.content-header
+  %h1
+    = @retro_board.name
+    %small
+      = @retro_board.project.name
 
-%p
-  %b Name:
-  = @retro_board.name
-%p
-  %b Project:
-  = @retro_board.project_id
+%br
 
-= link_to 'Edit', edit_retro_board_path(@retro_board)
-\|
-= link_to 'Back', retro_boards_path
+.row
+  .col-md-4
+    .box.box-default
+      .box-header.with-border
+        %h3.box-title
+          = @retro_board.name
+      .box-body{:style => "display: block;"}
+        The body of the box
+  .col-md-4
+    .box.box-default
+      .box-header.with-border
+        %h3.box-title
+          = @retro_board.name
+      .box-body{:style => "display: block;"}
+        The body of the box
+  .col-md-4
+    .box.box-default
+      .box-header.with-border
+        %h3.box-title
+          = @retro_board.name
+      .box-body{:style => "display: block;"}
+        The body of the box
