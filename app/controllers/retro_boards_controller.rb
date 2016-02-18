@@ -26,7 +26,7 @@ class RetroBoardsController < ApplicationController
 
     respond_to do |format|
       if @retro_board.save
-        format.html { redirect_to user_retro_boards_path(@retro_board), notice: 'Retro board was successfully created.' }
+        format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Retro board was successfully created.' }
         format.json { render action: 'show', status: :created, location: @retro_board }
       else
         format.html { render action: 'new' }
@@ -38,7 +38,7 @@ class RetroBoardsController < ApplicationController
   def update
     respond_to do |format|
       if @retro_board.update(retro_board_params)
-        format.html { redirect_to @retro_board, notice: 'Retro board was successfully updated.' }
+        format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Retro board was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

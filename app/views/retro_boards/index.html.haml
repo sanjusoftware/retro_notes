@@ -7,7 +7,6 @@
 - @projects.each do |project|
   .box.box-primary
     .box-header.ui-sortable-handle{:style => "cursor: move;"}
-      %i.ion.ion-clipboard
       %h3.box-title
         = project.name
       .box-tools.pull-right
@@ -20,6 +19,7 @@
       %ul.todo-list.ui-sortable
         - project.retro_boards.each do |retro_board|
           %li
+            %i.ion.ion-clipboard
             %span.text
               = link_to retro_board.name, user_retro_board_path(current_user, retro_board)
             %small.label.label-info
