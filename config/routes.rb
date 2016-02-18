@@ -9,6 +9,8 @@ RetroNotes::Application.routes.draw do
     resources :retro_boards
   end
 
+  delete '/delete_project/:id', to: 'retro_boards#delete_project', as: 'delete_project'
+
   root 'retro_boards#index'
 
 end

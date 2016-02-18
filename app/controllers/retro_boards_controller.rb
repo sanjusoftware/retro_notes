@@ -50,7 +50,16 @@ class RetroBoardsController < ApplicationController
   def destroy
     @retro_board.destroy
     respond_to do |format|
-      format.html { redirect_to retro_boards_url }
+      format.html { redirect_to user_retro_boards_path(current_user), notice: 'Retro board was successfully deleted.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def delete_project
+    @project = current_user.projects.find_by_id(params[:id])
+    @project.destroy
+    respond_to do |format|
+      format.html { redirect_to user_retro_boards_path(current_user), notice: 'Project was successfully deleted.' }
       format.json { head :no_content }
     end
   end
