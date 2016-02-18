@@ -5,7 +5,7 @@
 %br
 
 - @projects.each do |project|
-  .box.box-primary
+  .box.box-default
     .box-header.ui-sortable-handle{:style => "cursor: move;"}
       %h3.box-title
         = project.name
@@ -15,7 +15,7 @@
             %i.fa.fa-plus
             Add Board
         %button.btn.btn-default
-          = link_to delete_project_path(project), :method => :delete, class: 'delete' do
+          = link_to delete_project_path(project), :method => :delete, data: { confirm: 'There is no looking back. Deleting the project will delete all related retro boards and notes as well. Are you sure?' }, class: 'delete' do
             %i.fa.fa-trash-o
     .box-body
       %ul.todo-list.ui-sortable
@@ -30,5 +30,5 @@
             .tools
               = link_to edit_user_retro_board_path(current_user, retro_board) do
                 %i.fa.fa-edit
-              = link_to user_retro_board_path(current_user, retro_board), :method => :delete, class: 'delete' do
+              = link_to user_retro_board_path(current_user, retro_board), :method => :delete, data: { confirm: 'There is no looking back. Once deleted, its deleted forever! Are you sure?' }, class: 'delete' do
                 %i.fa.fa-trash-o
