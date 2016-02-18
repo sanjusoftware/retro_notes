@@ -26,5 +26,6 @@
               %i.fa.fa-clock-o
               = retro_board.updated_at.strftime('last updated on %m/%d/%Y')
             .tools
-              %i.fa.fa-edit
+              = link_to edit_user_retro_board_path(current_user, retro_board) do
+                %i.fa.fa-edit
               %i.fa.fa-trash-o
