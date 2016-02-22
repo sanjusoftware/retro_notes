@@ -6,35 +6,36 @@
       = @retro_board.project.name
 
 .row
-  .col-md-4
-    %h3.text-green.text-center
-      %i.fa.fa-thumbs-o-up
-      What went well
-    .row
-      .col-md-6.col-sm-12
-        #retro_card.box.box-success
-          .box-body{:style => "display: block;"}
-            .box-tools.pull-right
-              %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
-                3
-                %i.fa.fa-thumbs-up
-            This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow
-          .box-footer
-            .box-tools.pull-right
-              %button.btn.btn-box-tool{"data-original-title" => "Plus 1", 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
-                %i.fa.fa-thumbs-up.plus-one
-      .col-md-6.col-sm-12
-        #retro_card.box.box-success
-          .box-body{:style => "display: block;"}
-            .box-tools.pull-right
-              %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
-                3
-                %i.fa.fa-thumbs-up
-            This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow
-          .box-footer
-            .box-tools.pull-right
-              %button.btn.btn-box-tool{"data-original-title" => "Plus 1", 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
-                %i.fa.fa-thumbs-up.plus-one
+  - @retro_board.retro_panels.each do |panel|
+    .col-md-4
+      %h3.text-green.text-center
+        %i.fa.fa-thumbs-o-up
+        = panel.name
+      .row
+        .col-md-6.col-sm-12
+          #retro_card.box.box-success
+            .box-body{:style => "display: block;"}
+              .box-tools.pull-right
+                %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
+                  3
+                  %i.fa.fa-thumbs-up
+              This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow
+            .box-footer
+              .box-tools.pull-right
+                %button.btn.btn-box-tool{"data-original-title" => "Plus 1", 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
+                  %i.fa.fa-thumbs-up.plus-one
+        .col-md-6.col-sm-12
+          #retro_card.box.box-success
+            .box-body{:style => "display: block;"}
+              .box-tools.pull-right
+                %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
+                  3
+                  %i.fa.fa-thumbs-up
+              This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow
+            .box-footer
+              .box-tools.pull-right
+                %button.btn.btn-box-tool{"data-original-title" => "Plus 1", 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
+                  %i.fa.fa-thumbs-up.plus-one
 
   .col-md-4
     %h3.text-red.text-center

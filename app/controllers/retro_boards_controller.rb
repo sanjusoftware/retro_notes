@@ -10,19 +10,28 @@ class RetroBoardsController < ApplicationController
 
   def new
     @retro_board = RetroBoard.new
+    ['What went wrong?', 'What can be done better?', 'Other ideas / suggestions'].each do |panel_name|
+      @retro_board.retro_panels.build(:name => panel_name)
+    end
   end
 
   def edit
+    if @retro_board.retro_panels.blank?
+      ['What went wrong?', 'What can be done better?', 'Other ideas / suggestions'].each do |panel_name|
+        @retro_board.retro_panels.build(:name => panel_name)
+      end
+    end
+
   end
 
   def create
     if retro_board_params[:new_project_name].present?
       @project = current_user.projects.create(name: retro_board_params[:new_project_name])
     else
-      @project = current_user.projects.find(retro_board_params[:project])
+      @project = current_user.projects.find(retro_board_params[:project_id])
     end
 
-    @retro_board = @project.retro_boards.new(name: retro_board_params[:name])
+    @retro_board = @project.retro_boards.new(retro_board_params)
 
     respond_to do |format|
       if @retro_board.save
@@ -72,6 +81,6 @@ class RetroBoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def retro_board_params
-      params.require(:retro_board).permit(:name, :new_project_name, :project)
+      params.require(:retro_board).permit(:name, :new_project_name, :project_id, retro_panels_attributes: [:id, :name])
     end
 end

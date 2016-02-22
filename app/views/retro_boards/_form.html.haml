@@ -23,6 +23,13 @@
           .row
             .col-sm-6
               = f.text_field :new_project_name, :class => 'form-control', :placeholder => 'or Enter new project name'
+    .form-group.required
+      = f.label :panel_names, :class => 'col-sm-2 control-label'
+      .col-sm-10
+        .row
+          = f.fields_for :retro_panels do |retro_panel|
+            .col-sm-4
+              = retro_panel.text_field :name, :class => 'form-control'
   .box-footer
     = link_to 'Cancel', root_path, :class => 'btn btn-default'
     = f.submit 'Save', :class => 'btn btn-info pull-right'
