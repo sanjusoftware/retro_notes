@@ -9,6 +9,16 @@ class User < ActiveRecord::Base
 
   has_many :projects
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  def slug_candidates
+    [
+        :full_name,
+        [:full_name, :id]
+    ]
+  end
+
   def confirmation_required?
     super && email.present?
   end
