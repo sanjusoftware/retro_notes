@@ -1,6 +1,8 @@
 class RetroBoardsController < ApplicationController
   before_action :set_retro_board, only: [:show, :edit, :update, :destroy]
 
+  DEFAULT_RETRO_PANELS = ['What went wrong?', 'What can be done better?', 'Other ideas / suggestions']
+
   def index
     @projects = current_user.projects
   end
@@ -10,14 +12,14 @@ class RetroBoardsController < ApplicationController
 
   def new
     @retro_board = RetroBoard.new
-    ['What went wrong?', 'What can be done better?', 'Other ideas / suggestions'].each do |panel_name|
+    DEFAULT_RETRO_PANELS.each do |panel_name|
       @retro_board.retro_panels.build(:name => panel_name)
     end
   end
 
   def edit
     if @retro_board.retro_panels.blank?
-      ['What went wrong?', 'What can be done better?', 'Other ideas / suggestions'].each do |panel_name|
+      DEFAULT_RETRO_PANELS.each do |panel_name|
         @retro_board.retro_panels.build(:name => panel_name)
       end
     end
