@@ -8,7 +8,7 @@
 .row
   - @retro_board.retro_panels.each do |retro_panel|
     .col-md-4
-      %h3.text-green.text-center
+      %h3.text-center{:style => "color : #{retro_panel.color}"}
         %i.fa.fa-thumbs-o-up
         = retro_panel.name
       %div{:id => "retro_panel_#{retro_panel.id}"}

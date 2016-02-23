@@ -1,7 +1,7 @@
 class RetroBoardsController < ApplicationController
   before_action :set_retro_board, only: [:show, :edit, :update, :destroy, :create_new_card]
 
-  DEFAULT_RETRO_PANELS = ['What went wrong?', 'What can be done better?', 'Other ideas / suggestions']
+  DEFAULT_RETRO_PANELS = {'What went well?' => '#00a65a', 'What can be done better?' => '#dd4b39', 'Other ideas / suggestions' => '#f39c12'}
 
   def index
     @projects = current_user.projects
@@ -12,15 +12,15 @@ class RetroBoardsController < ApplicationController
 
   def new
     @retro_board = RetroBoard.new
-    DEFAULT_RETRO_PANELS.each do |panel_name|
-      @retro_board.retro_panels.build(:name => panel_name)
+    DEFAULT_RETRO_PANELS.each do |panel|
+      @retro_board.retro_panels.build(:name => panel[0], :color => panel[1])
     end
   end
 
   def edit
     if @retro_board.retro_panels.blank?
-      DEFAULT_RETRO_PANELS.each do |panel_name|
-        @retro_board.retro_panels.build(:name => panel_name)
+      DEFAULT_RETRO_PANELS.each do |panel|
+        @retro_board.retro_panels.build(:name => panel[0], :color => panel[1])
       end
     end
 
@@ -99,7 +99,7 @@ class RetroBoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def retro_board_params
-      params.require(:retro_board).permit(:name, :new_project_name, :project_id, retro_panels_attributes: [:id, :name], retro_card: [:description => :string])
+      params.require(:retro_board).permit(:name, :new_project_name, :project_id, retro_panels_attributes: [:id, :name, :color], retro_card: [:description => :string])
     end
 
     def retro_card_params

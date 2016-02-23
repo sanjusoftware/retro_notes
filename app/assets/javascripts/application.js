@@ -28,7 +28,7 @@ $(document).on('ready page:change', function () {
     $('.my-colorpicker').colorpicker({
         'format': 'hex'
         }
-    ).on('changeColor.colorpicker', function(event){
-        $('.panel-name').css('color', event.color.toHex());
+    ).on('changeColor.colorpicker', function(event) {
+        $(this).parent().find('.panel-name').css('color', event.color.toHex());
     });
 });
