@@ -1,11 +1,14 @@
 - retro_panel.retro_cards.each do |retro_card|
   .col-md-6.col-sm-12
     #retro_card.box{:style => "border-top-color : #{retro_panel.color}"}
-      .box-body{:style => "display: block;"}
+      .box-header
+        %span.badge{"data-original-title" => '3 Upvotes', "data-toggle" => "tooltip", :title => "Upvotes"}
+          3
+          %i.fa.fa-thumbs-up
         .box-tools.pull-right
-          %span.badge.bg-green{"data-original-title" => '3 Upvotes', "data-toggle" => "tooltip", :title => ""}
-            3
-            %i.fa.fa-thumbs-up
+          %button.btn.btn-box-tool{"data-widget" => "remove"}
+            %i.fa.fa-times
+      .box-body
         = retro_card.description
       .box-footer
         .box-tools.pull-right
