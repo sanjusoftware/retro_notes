@@ -1,3 +1,1 @@
-alert('I got here');
-
 $("#retro_panel_"+ <%=@retro_panel.id%>).replaceWith("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_board: @retro_board, retro_panel: @retro_panel.reload} %>");
