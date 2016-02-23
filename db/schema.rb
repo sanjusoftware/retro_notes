@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222145501) do
+ActiveRecord::Schema.define(version: 20160223022749) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(version: 20160222145501) do
   end
 
   add_index "retro_boards", ["slug"], name: "index_retro_boards_on_slug", unique: true
+
+  create_table "retro_cards", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "retro_panel_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "retro_panels", force: :cascade do |t|
     t.string   "name"

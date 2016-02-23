@@ -1,5 +1,5 @@
 class RetroBoardsController < ApplicationController
-  before_action :set_retro_board, only: [:show, :edit, :update, :destroy]
+  before_action :set_retro_board, only: [:show, :edit, :update, :destroy, :create_new_card]
 
   DEFAULT_RETRO_PANELS = ['What went wrong?', 'What can be done better?', 'Other ideas / suggestions']
 
@@ -75,6 +75,22 @@ class RetroBoardsController < ApplicationController
     end
   end
 
+  def create_new_card
+    @retro_panel = @retro_board.retro_panels.find(params[:retro_panel_id])
+    @retro_card = @retro_panel.retro_cards.new(retro_card_params)
+    respond_to do |format|
+      if @retro_card.save
+        format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Card was successfully added.' }
+        format.json { render action: 'show', status: :created, location: @retro_card }
+        format.js { render action: 'create_new_card', status: :created}
+      else
+        format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Card could not be added.' }
+        format.json { render json: @retro_card.errors, status: :unprocessable_entity }
+        format.js { render json: @retro_card.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_retro_board
@@ -83,6 +99,11 @@ class RetroBoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def retro_board_params
-      params.require(:retro_board).permit(:name, :new_project_name, :project_id, retro_panels_attributes: [:id, :name])
+      params.require(:retro_board).permit(:name, :new_project_name, :project_id, retro_panels_attributes: [:id, :name], retro_card: [:description => :string])
     end
+
+    def retro_card_params
+      params.require(:retro_card).permit(:description)
+    end
+
 end

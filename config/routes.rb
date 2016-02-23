@@ -10,6 +10,7 @@ RetroNotes::Application.routes.draw do
   end
 
   delete '/delete_project/:id', to: 'retro_boards#delete_project', as: 'delete_project'
+  post '/retro_boards/:id/retro_panels/:retro_panel_id', to: 'retro_boards#create_new_card', as: 'create_new_card'
 
   root 'retro_boards#index'
 

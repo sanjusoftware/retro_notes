@@ -6,80 +6,10 @@
       = @retro_board.project.name
 
 .row
-  - @retro_board.retro_panels.each do |panel|
+  - @retro_board.retro_panels.each do |retro_panel|
     .col-md-4
       %h3.text-green.text-center
         %i.fa.fa-thumbs-o-up
-        = panel.name
-      .row
-        .col-md-6.col-sm-12
-          #retro_card.box.box-success
-            .box-body{:style => "display: block;"}
-              .box-tools.pull-right
-                %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
-                  3
-                  %i.fa.fa-thumbs-up
-              This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow
-            .box-footer
-              .box-tools.pull-right
-                %button.btn.btn-box-tool{"data-original-title" => "Plus 1", 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
-                  %i.fa.fa-thumbs-up.plus-one
-        .col-md-6.col-sm-12
-          #retro_card.box.box-success
-            .box-body{:style => "display: block;"}
-              .box-tools.pull-right
-                %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
-                  3
-                  %i.fa.fa-thumbs-up
-              This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow This is not a good practice to follow
-            .box-footer
-              .box-tools.pull-right
-                %button.btn.btn-box-tool{"data-original-title" => "Plus 1", 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
-                  %i.fa.fa-thumbs-up.plus-one
-
-  .col-md-4
-    %h3.text-red.text-center
-      %i.fa.fa-thumbs-o-down
-      What can be done better
-    .row
-      .col-md-6.col-sm-12
-        #retro_card.box.box-danger
-          .box-body{:style => "display: block;"}
-            .box-tools.pull-right
-              %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
-                3
-                %i.fa.fa-thumbs-up
-            This is not a good practice to follow This is not a good practice to follow
-          .box-footer
-            .box-tools.pull-right
-              %button.btn.btn-box-tool{"data-original-title" => "Plus 1", 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
-                %i.fa.fa-thumbs-up.plus-one
-      .col-md-6.col-sm-12
-        #retro_card.box.box-danger
-          .box-body{:style => "display: block;"}
-            .box-tools.pull-right
-              %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
-                3
-                %i.fa.fa-thumbs-up
-            This is not a good practice to follow This is not a good practice to follow
-          .box-footer
-            .box-tools.pull-right
-              %button.btn.btn-box-tool{"data-original-title" => "Plus 1", 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
-                %i.fa.fa-thumbs-up.plus-one
-
-  .col-md-4.text-center
-    %h3.text-yellow
-      %i.fa.fa-lightbulb-o
-      Ideas / Suggestions
-    #retro_card.box.box-warning
-      .box-body{:style => "display: block;"}
-        .box-tools.pull-right
-          %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
-            3
-            %i.fa.fa-thumbs-up
-
-        The body of the box
-      .box-footer
-        .box-tools.pull-right
-          %button.btn.btn-box-tool{"data-original-title" => "Plus 1", 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
-            %i.fa.fa-thumbs-up.plus-one
+        = retro_panel.name
+      %div{:id => "retro_panel_#{retro_panel.id}"}
+        = render :partial => 'retro_boards/retro_panel', locals: {retro_board: @retro_board, retro_panel: retro_panel}
