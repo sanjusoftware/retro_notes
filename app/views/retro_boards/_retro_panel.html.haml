@@ -1,19 +1,13 @@
 - retro_panel.retro_cards.each do |retro_card|
   .col-md-6.col-sm-12
-    #retro_card.box.box-success
+    #retro_card.box{:style => "border-top-color : #{retro_panel.color}"}
       .box-body{:style => "display: block;"}
         .box-tools.pull-right
-          %span.badge.bg-green{"data-original-title" => '3 New Messages', "data-toggle" => "tooltip", :title => ""}
+          %span.badge.bg-green{"data-original-title" => '3 Upvotes', "data-toggle" => "tooltip", :title => ""}
             3
             %i.fa.fa-thumbs-up
         = retro_card.description
       .box-footer
         .box-tools.pull-right
-          %button.btn.btn-box-tool{"data-original-title" => 'Plus 1', 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
+          %button.btn.btn-box-tool{"data-original-title" => 'Upvote', 'data-toggle' => 'tooltip', 'data-widget' => "chat-pane-toggle", :title => ""}
             %i.fa.fa-thumbs-up.plus-one
-.col-md-12.col-sm-12
-  = form_for RetroCard.new, url: "/retro_boards/#{retro_board.id}/retro_panels/#{retro_panel.id}", :remote => true, :html => {:class => 'form-horizontal'} do |f|
-    .input-group
-      = f.text_field :description, :class => 'form-control', :placeholder => "#{retro_panel.name} ...", :required => 'true'
-      %span.input-group-btn
-        = f.submit 'Add Card', :class => 'btn btn-default btn-flat pull-right'

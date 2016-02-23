@@ -1,1 +1,2 @@
-$("#retro_panel_"+ <%=@retro_panel.id%>).replaceWith("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_board: @retro_board, retro_panel: @retro_panel.reload} %>");
+$("#retro_panel_"+ <%=@retro_panel.id%>).html("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_board: @retro_board, retro_panel: @retro_panel.reload} %>");
+$('#add_card_retro_panel_'+ <%=@retro_panel.id%>).val('');
