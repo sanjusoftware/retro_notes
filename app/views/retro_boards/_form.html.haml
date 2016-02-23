@@ -29,7 +29,11 @@
         .row
           = f.fields_for :retro_panels do |retro_panel|
             .col-sm-4
-              = retro_panel.text_field :name, :class => 'form-control'
+              = retro_panel.text_field :name, :class => 'form-control panel-name'
+              .input-group.my-colorpicker{"data-color" => '#00a65a'}
+                = retro_panel.text_field :name, :class => 'form-control'
+                .input-group-addon
+                  %i
   .box-footer
     = link_to 'Cancel', root_path, :class => 'btn btn-default'
     = f.submit 'Save', :class => 'btn btn-info pull-right'

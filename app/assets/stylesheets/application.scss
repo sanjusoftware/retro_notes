@@ -11,6 +11,7 @@
  *= require iCheck/square/grey
  *= require select2
  *= require select2-bootstrap
+ *= require bootstrap-colorpicker
  *= require_self
  *= require_tree .
  */
@@ -43,4 +44,9 @@
 
 a.delete {
   color: #dd4b39;
+}
+
+.colorpicker {
+  min-width: 130px !important;
+  padding: 4px !important;
 }

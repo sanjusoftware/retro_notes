@@ -17,6 +17,7 @@
 //= require jquery.slimscroll
 //= require iCheck
 //= require select2
+//= require bootstrap-colorpicker
 //= require app
 //= require_tree .
 
@@ -24,5 +25,10 @@
 $(document).on('ready page:change', function () {
 
     $('select.we_select').select2();
-
+    $('.my-colorpicker').colorpicker({
+        'format': 'hex'
+        }
+    ).on('changeColor.colorpicker', function(event){
+        $('.panel-name').css('color', event.color.toHex());
+    });
 });
