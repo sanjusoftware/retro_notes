@@ -75,6 +75,18 @@ class RetroBoardsController < ApplicationController
     end
   end
 
+  def delete_retro_card
+    @retro_card = RetroCard.find_by_id(params[:id])
+    @retro_panel = @retro_card.retro_panel
+    @retro_board = @retro_panel.retro_board
+
+    @retro_card.destroy
+    respond_to do |format|
+      format.js { render action: 'create_new_card', status: :ok}
+      format.json { head :no_content }
+    end
+  end
+
   def create_new_card
     @retro_panel = @retro_board.retro_panels.find(params[:retro_panel_id])
     @retro_card = @retro_panel.retro_cards.new(retro_card_params)

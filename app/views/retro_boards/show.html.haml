@@ -11,6 +11,8 @@
       %h3.text-center{:style => "color : #{retro_panel.color}"}
         %i.fa.fa-hand-o-down
         = retro_panel.name
+        %span{:id => "retro_panel_head_#{retro_panel.id}"}
+          = "(#{retro_panel.retro_cards.count})"
       .row
         .col-md-12.col-sm-12
           = form_for RetroCard.new, url: "/retro_boards/#{@retro_board.id}/retro_panels/#{retro_panel.id}", :remote => true, :html => {:class => 'form-horizontal'} do |f|
