@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223190623) do
+ActiveRecord::Schema.define(version: 20160224132418) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -49,9 +49,24 @@ ActiveRecord::Schema.define(version: 20160223190623) do
   create_table "retro_cards", force: :cascade do |t|
     t.text     "description"
     t.integer  "retro_panel_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "cached_votes_total",      default: 0
+    t.integer  "cached_votes_score",      default: 0
+    t.integer  "cached_votes_up",         default: 0
+    t.integer  "cached_votes_down",       default: 0
+    t.integer  "cached_weighted_score",   default: 0
+    t.integer  "cached_weighted_total",   default: 0
+    t.float    "cached_weighted_average", default: 0.0
   end
+
+  add_index "retro_cards", ["cached_votes_down"], name: "index_retro_cards_on_cached_votes_down"
+  add_index "retro_cards", ["cached_votes_score"], name: "index_retro_cards_on_cached_votes_score"
+  add_index "retro_cards", ["cached_votes_total"], name: "index_retro_cards_on_cached_votes_total"
+  add_index "retro_cards", ["cached_votes_up"], name: "index_retro_cards_on_cached_votes_up"
+  add_index "retro_cards", ["cached_weighted_average"], name: "index_retro_cards_on_cached_weighted_average"
+  add_index "retro_cards", ["cached_weighted_score"], name: "index_retro_cards_on_cached_weighted_score"
+  add_index "retro_cards", ["cached_weighted_total"], name: "index_retro_cards_on_cached_weighted_total"
 
   create_table "retro_panels", force: :cascade do |t|
     t.string   "name"
@@ -91,5 +106,20 @@ ActiveRecord::Schema.define(version: 20160223190623) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true
   add_index "users", ["uid"], name: "index_users_on_uid"
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
 
 end

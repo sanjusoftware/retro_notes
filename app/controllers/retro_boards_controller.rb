@@ -87,6 +87,42 @@ class RetroBoardsController < ApplicationController
     end
   end
 
+  def upvote_retro_card
+    @retro_card = RetroCard.find_by_id(params[:id])
+    @retro_panel = @retro_card.retro_panel
+    @retro_board = @retro_panel.retro_board
+
+    respond_to do |format|
+      if current_user.voted_as_when_voted_for @retro_card
+        format.json { render json: @retro_card.errors, status: :unprocessable_entity }
+        format.js { render json: @retro_card.errors, status: :unprocessable_entity }
+      else
+        current_user.up_votes @retro_card
+        format.json { head :no_content }
+        format.js { render action: 'create_new_card', status: :ok }
+      end
+
+    end
+  end
+
+  def downvote_retro_card
+    @retro_card = RetroCard.find_by_id(params[:id])
+    @retro_panel = @retro_card.retro_panel
+    @retro_board = @retro_panel.retro_board
+
+    respond_to do |format|
+      if current_user.voted_as_when_voted_for @retro_card
+        current_user.down_votes @retro_card
+        format.json { head :no_content }
+        format.js { render action: 'create_new_card', status: :ok }
+      else
+        format.json { render json: @retro_card.errors, status: :unprocessable_entity }
+        format.js { render json: @retro_card.errors, status: :unprocessable_entity }
+      end
+
+    end
+  end
+
   def create_new_card
     @retro_panel = @retro_board.retro_panels.find(params[:retro_panel_id])
     @retro_card = @retro_panel.retro_cards.new(retro_card_params)

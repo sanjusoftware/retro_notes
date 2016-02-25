@@ -40,8 +40,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'rename'
-
 gem 'rails_12factor', group: :production
+gem 'acts_as_votable', '~> 0.10.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
