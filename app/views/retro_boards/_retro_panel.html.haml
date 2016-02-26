@@ -1,9 +1,9 @@
-- retro_panel.retro_cards.order('updated_at').each do |retro_card|
+- retro_panel.retro_cards.order('updated_at desc').each do |retro_card|
   .col-md-6.col-sm-12
     #retro_card.box{:style => "border-top-color : #{retro_panel.color}"}
       .box-header
-        %span.badge{"data-original-title" => '3 Upvotes', "data-toggle" => 'tooltip'}
-          3
+        %span.badge{"data-original-title" => pluralize(retro_card.get_upvotes.size, 'upvote'), "data-toggle" => 'tooltip'}
+          = retro_card.get_upvotes.size
           %i.fa.fa-thumbs-up
         .box-tools.pull-right
           %button.btn.btn-box-tool{"data-widget" => "remove"}

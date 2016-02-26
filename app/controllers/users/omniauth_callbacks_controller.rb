@@ -1,11 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  def facebook
-    generic_callback( 'facebook' )
-  end
-
-  def twitter
-    generic_callback( 'twitter' )
+  def github
+    generic_callback( 'github' )
   end
 
   def google_oauth2
