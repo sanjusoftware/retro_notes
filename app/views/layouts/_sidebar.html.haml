@@ -26,10 +26,11 @@
     %ul.sidebar-menu
       %li.header HEADER
       / Optionally, you can add icons to the links
-      %li.active
-        = link_to user_retro_boards_path(current_user) do
-          %i.ion.ion-clipboard
-          %span My Retro Boards
+      - if current_user
+        %li.active
+          = link_to user_retro_boards_path(current_user) do
+            %i.ion.ion-clipboard
+            %span My Retro Boards
       -#%li
       -#  %a{:href => "#"}
       -#    %i.fa.fa-link

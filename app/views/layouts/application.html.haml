@@ -33,15 +33,10 @@
         / Main content
         %section.content
           - if notice
-            .alert.alert-success.alert-dismissable
-              %i.fa.fa-check
-              %button.close{"aria-hidden" => "true", "data-dismiss" => 'alert', :type => "button"} ×
-              %b= notice
-          - if alert
-            .alert.alert-danger.alert-dismissable
-              %i.fa.fa-ban
-              %button.close{"aria-hidden" => "true", "data-dismiss" => 'alert', :type => "button"} ×
-              %b= alert
+            = render :partial => 'layouts/notice', locals: {notice: notice}
+          #alert
+            - if alert
+              = render :partial => 'layouts/alert', locals: {alert: alert}
           = yield
       / /.content
       / /.content-wrapper

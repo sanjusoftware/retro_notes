@@ -33,8 +33,9 @@
                 %li
                   / start message
                   %a{:href => "#"}
-                    .pull-left
-                      = image_tag(current_user.profile_photo, class: 'img-circle')
+                    - if current_user
+                      .pull-left
+                        = image_tag(current_user.profile_photo, class: 'img-circle')
                     / Message title and timestamp
                     %h4
                       Support Team

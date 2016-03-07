@@ -1,4 +1,4 @@
-- retro_panel.retro_cards.order('updated_at desc').each do |retro_card|
+- retro_panel.retro_cards.each do |retro_card|
   .col-md-6.col-sm-12
     #retro_card.box{:style => "border-top-color : #{retro_panel.color}"}
       .box-header
@@ -13,7 +13,7 @@
         = retro_card.description
       .box-footer
         .box-tools.pull-right
-          - if current_user.voted_as_when_voted_for(retro_card)
+          - if current_user && current_user.voted_as_when_voted_for(retro_card)
             = link_to downvote_retro_card_path(retro_card), class: 'btn btn-box-tool upvoted', data: {"original-title" => 'Downvote', 'toggle' => 'tooltip'}, remote: true do
               %i.fa.fa-thumbs-down.plus-one
           - else

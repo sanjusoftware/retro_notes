@@ -1,5 +1,7 @@
 class RetroBoardsController < ApplicationController
-  before_action :set_retro_board, only: [:show, :edit, :update, :destroy, :create_new_card]
+  skip_before_filter :authenticate_user!, :only => [:show, :create_retro_card, :delete_retro_card]
+
+  before_action :set_retro_board, only: [:show, :edit, :update, :destroy, :create_retro_card]
 
   DEFAULT_RETRO_PANELS = {'What went well?' => '#00a65a', 'What can be done better?' => '#dd4b39', 'Other ideas / suggestions' => '#f39c12'}
 
@@ -82,7 +84,7 @@ class RetroBoardsController < ApplicationController
 
     @retro_card.destroy
     respond_to do |format|
-      format.js { render action: 'create_new_card', status: :ok}
+      format.js { render action: 'create_retro_card', status: :ok}
       format.json { head :no_content }
     end
   end
@@ -99,7 +101,7 @@ class RetroBoardsController < ApplicationController
       else
         current_user.up_votes @retro_card
         format.json { head :no_content }
-        format.js { render action: 'create_new_card', status: :ok }
+        format.js { render action: 'create_retro_card', status: :ok }
       end
 
     end
@@ -114,7 +116,7 @@ class RetroBoardsController < ApplicationController
       if current_user.voted_as_when_voted_for @retro_card
         current_user.down_votes @retro_card
         format.json { head :no_content }
-        format.js { render action: 'create_new_card', status: :ok }
+        format.js { render action: 'create_retro_card', status: :ok }
       else
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
         format.js { render json: @retro_card.errors, status: :unprocessable_entity }
@@ -123,14 +125,14 @@ class RetroBoardsController < ApplicationController
     end
   end
 
-  def create_new_card
+  def create_retro_card
     @retro_panel = @retro_board.retro_panels.find(params[:retro_panel_id])
     @retro_card = @retro_panel.retro_cards.new(retro_card_params)
     respond_to do |format|
       if @retro_card.save
         format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Card was successfully added.' }
         format.json { render action: 'show', status: :created, location: @retro_card }
-        format.js { render action: 'create_new_card', status: :created}
+        format.js { render action: 'create_retro_card', status: :created}
       else
         format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Card could not be added.' }
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
