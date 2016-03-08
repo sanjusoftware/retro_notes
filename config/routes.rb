@@ -9,6 +9,8 @@ RetroNotes::Application.routes.draw do
     resources :retro_boards
   end
 
+  get '/401_ajax', to: 'application#handle_401_ajax'
+
   delete '/delete_project/:id', to: 'retro_boards#delete_project', as: 'delete_project'
   delete '/delete_retro_card/:id', to: 'retro_boards#delete_retro_card', as: 'delete_retro_card'
   get '/upvote_retro_card/:id', to: 'retro_boards#upvote_retro_card', as: 'upvote_retro_card'

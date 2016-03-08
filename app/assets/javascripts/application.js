@@ -35,10 +35,9 @@ $(document).on('ready page:change', function () {
 
 $(document).ajaxError(function (e, xhr, settings) {
     if (xhr.status == 401) {
-        //TODO : remove this from here and make it call form the 'layouts/alert partial'. not sure how to do that as of now on Rails4.
-        $("#alert").html("<div class='alert alert-danger alert-dismissable'>" +
-        "<i class='fa fa-ban'></i>" +
-        "<button aria-hidden='true' class='close' data-dismiss='alert' type='button'>×</button>" +
-        "<span><b> You need to sign in or sign up before continuing.</b></span></div>");
+        $.ajax({
+            type: "GET",
+            url: "/401_ajax"
+        });
     }
 });

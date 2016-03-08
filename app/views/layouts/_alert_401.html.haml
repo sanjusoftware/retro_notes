@@ -1,0 +1,11 @@
+.alert.alert-danger.alert-dismissable
+  %i.fa.fa-ban
+  %button.close{"aria-hidden" => "true", "data-dismiss" => 'alert', :type => "button"} ×
+  %span
+    %b You need to sign in or sign up before continuing.
+    = link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-social btn-google-plus btn-flat' do
+      %i.fa.fa-google-plus
+      Sign in using Google+
+    = link_to user_omniauth_authorize_path(:github), class: 'btn btn-social btn-github btn-flat' do
+      %i.fa.fa-github
+      Sign in using Github
