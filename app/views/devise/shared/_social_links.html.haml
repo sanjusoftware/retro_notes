@@ -1,9 +1,7 @@
-.social-auth-links.text-center
-  %p - OR -
-  = link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-social btn-google-plus btn-flat' do
-    %i.fa.fa-google-plus
-    Sign in using Google+
-  = link_to user_omniauth_authorize_path(:github), class: 'btn btn-block btn-social btn-github btn-flat' do
-    %i.fa.fa-github
-    Sign in using Github
-    / /.social-auth-links
+= link_to user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-social btn-google-plus btn-flat' do
+  %i.fa.fa-google-plus
+  Sign in using Google+
+= link_to user_omniauth_authorize_path(:github), class: 'btn btn-block btn-social btn-github btn-flat' do
+  %i.fa.fa-github
+  Sign in using Github
+  / /.social-auth-links
