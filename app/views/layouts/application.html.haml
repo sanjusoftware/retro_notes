@@ -31,7 +31,7 @@
                 Level
             %li.active Here
         / Main content
-        %section.content
+        %section
           - if notice
             = render :partial => 'layouts/notice', locals: {notice: notice}
           #alert
