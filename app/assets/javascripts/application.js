@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require best_in_place
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
@@ -31,6 +32,8 @@ $(document).on('ready page:change', function () {
     ).on('changeColor.colorpicker', function(event) {
         $(this).parent().find('.panel-name').css('color', event.color.toHex());
     });
+
+    $(".best_in_place").best_in_place();
 });
 
 $(document).ajaxError(function (e, xhr, settings) {

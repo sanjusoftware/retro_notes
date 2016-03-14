@@ -49,8 +49,15 @@ class RetroBoardsController < ApplicationController
   end
 
   def update
+    params_to_update = retro_board_params
+    if retro_board_params[:project][:name].present?
+      @project = current_user.projects.find_or_create_by(name: retro_board_params[:project][:name])
+      params_to_update[:project_id] = @project.id
+      params_to_update.delete(:project)
+    end
+
     respond_to do |format|
-      if @retro_board.update(retro_board_params)
+      if @retro_board.update(params_to_update)
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro board was successfully updated.' }
         format.json { head :no_content }
       else
@@ -121,7 +128,6 @@ class RetroBoardsController < ApplicationController
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
         format.js { render json: @retro_card.errors, status: :unprocessable_entity }
       end
-
     end
   end
 
@@ -149,7 +155,7 @@ class RetroBoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def retro_board_params
-      params.require(:retro_board).permit(:name, :new_project_name, :project_id, retro_panels_attributes: [:id, :name, :color], retro_card: [:description => :string])
+      params.require(:retro_board).permit(:name, :new_project_name, :project_id, project: [:name], retro_panels_attributes: [:id, :name, :color], retro_card: [:description => :string])
     end
 
     def retro_card_params

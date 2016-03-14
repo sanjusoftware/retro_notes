@@ -5,7 +5,9 @@ RetroNotes::Application.routes.draw do
              :controllers => { :omniauth_callbacks => 'users/omniauth_callbacks', registrations: 'users/registrations'}
 
 
-  resources :retro_boards
+  resources :retro_boards do
+    resources :retro_panels
+  end
 
   get '/401_ajax', to: 'application#handle_401_ajax'
 

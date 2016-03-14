@@ -1,16 +1,16 @@
 %section.content-header
   %h1.text-center
     %i.ion.ion-clipboard
-    = @retro_board.name
+    = best_in_place @retro_board, :name
     %small
-      = @retro_board.project.name
+      = best_in_place @retro_board.project, :name, path: retro_board_path(@retro_board), param: 'retro_board[project]'
 
 .row
   - @retro_board.retro_panels.each do |retro_panel|
     .col-md-4
       %h3.text-center{:style => "color : #{retro_panel.color}"}
         %i.fa.fa-hand-o-down
-        = retro_panel.name
+        = best_in_place retro_panel, :name, path: retro_board_retro_panel_path(@retro_board, retro_panel)
         %span{:id => "retro_panel_head_#{retro_panel.id}"}
           = "(#{retro_panel.retro_cards.count})"
       .row
