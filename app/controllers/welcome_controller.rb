@@ -1,6 +1,4 @@
 class WelcomeController < ApplicationController
-  def index
-    @project = current_user.projects.last
-    @retro_board = @project.retro_boards.last if @project
-  end
+  skip_before_filter :authenticate_user!
+  layout false
 end

@@ -17,6 +17,6 @@ RetroNotes::Application.routes.draw do
   get '/downvote_retro_card/:id', to: 'retro_boards#downvote_retro_card', as: 'downvote_retro_card'
   post '/retro_boards/:id/retro_panels/:retro_panel_id', to: 'retro_boards#create_retro_card', as: 'create_retro_card'
 
-  root 'retro_boards#index'
+  root 'welcome#index'
 
 end

@@ -1,12 +1,12 @@
 class RetroBoardsController < ApplicationController
-  skip_before_filter :authenticate_user!, :only => [:show, :create_retro_card, :delete_retro_card]
+  skip_before_filter :authenticate_user!, :only => [:index, :show, :create_retro_card, :delete_retro_card]
 
   before_action :set_retro_board, only: [:show, :edit, :update, :destroy, :create_retro_card]
 
   DEFAULT_RETRO_PANELS = {'What went well?' => '#00a65a', 'What can be done better?' => '#dd4b39', 'Other ideas / suggestions' => '#f39c12'}
 
   def index
-    @projects = current_user.projects
+    @projects = current_user.present? ? current_user.projects : []
   end
 
   def show
