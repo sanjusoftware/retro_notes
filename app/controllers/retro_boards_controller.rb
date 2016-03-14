@@ -39,7 +39,7 @@ class RetroBoardsController < ApplicationController
 
     respond_to do |format|
       if @retro_board.save
-        format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Retro board was successfully created.' }
+        format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro board was successfully created.' }
         format.json { render action: 'show', status: :created, location: @retro_board }
       else
         format.html { render action: 'new' }
@@ -51,7 +51,7 @@ class RetroBoardsController < ApplicationController
   def update
     respond_to do |format|
       if @retro_board.update(retro_board_params)
-        format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Retro board was successfully updated.' }
+        format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro board was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -63,16 +63,16 @@ class RetroBoardsController < ApplicationController
   def destroy
     @retro_board.destroy
     respond_to do |format|
-      format.html { redirect_to user_retro_boards_path(current_user), notice: 'Retro board was successfully deleted.' }
+      format.html { redirect_to retro_boards_path, notice: 'Retro board was successfully deleted.' }
       format.json { head :no_content }
     end
   end
 
   def delete_project
-    @project = current_user.projects.find_by_id(params[:id])
+    @project = current_user.projects.find(params[:id])
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to user_retro_boards_path(current_user), notice: 'Project was successfully deleted.' }
+      format.html { redirect_to retro_boards_path, notice: 'Project was successfully deleted.' }
       format.json { head :no_content }
     end
   end
@@ -130,11 +130,11 @@ class RetroBoardsController < ApplicationController
     @retro_card = @retro_panel.retro_cards.new(retro_card_params)
     respond_to do |format|
       if @retro_card.save
-        format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Card was successfully added.' }
+        format.html { redirect_to retro_board_path(@retro_board), notice: 'Card was successfully added.' }
         format.json { render action: 'show', status: :created, location: @retro_card }
         format.js { render action: 'create_retro_card', status: :created}
       else
-        format.html { redirect_to user_retro_board_path(current_user, @retro_board), notice: 'Card could not be added.' }
+        format.html { redirect_to retro_board_path(@retro_board), notice: 'Card could not be added.' }
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
         format.js { render json: @retro_card.errors, status: :unprocessable_entity }
       end

@@ -3,7 +3,7 @@
     My Retro Boards
     - if current_user
       %small
-        = link_to new_user_retro_board_path(current_user) do
+        = link_to new_retro_board_path do
           %i.fa.fa-plus
           Add Board
 
@@ -16,7 +16,7 @@
         = project.name
       .box-tools.pull-right
         %button.btn.btn-default
-          = link_to new_user_retro_board_path(current_user) do
+          = link_to new_retro_board_path do
             %i.fa.fa-plus
             Add Board
         %button.btn.btn-default
@@ -28,12 +28,12 @@
           %li
             %i.ion.ion-clipboard
             %span.text
-              = link_to retro_board.name, user_retro_board_path(current_user, retro_board)
+              = link_to retro_board.name, retro_board_path(retro_board)
             %small.label.label-info
               %i.fa.fa-clock-o
               = retro_board.updated_at.strftime('last updated on %m/%d/%Y')
             .tools
-              = link_to edit_user_retro_board_path(current_user, retro_board) do
+              = link_to edit_retro_board_path(retro_board) do
                 %i.fa.fa-edit
-              = link_to user_retro_board_path(current_user, retro_board), :method => :delete, data: { confirm: 'There is no looking back. Once deleted, its deleted forever! Are you sure?' }, class: 'delete' do
+              = link_to retro_board_path(retro_board), :method => :delete, data: { confirm: 'There is no looking back. Once deleted, its deleted forever! Are you sure?' }, class: 'delete' do
                 %i.fa.fa-trash-o
