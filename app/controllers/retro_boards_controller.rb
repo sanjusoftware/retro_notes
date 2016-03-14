@@ -1,7 +1,7 @@
 class RetroBoardsController < ApplicationController
   skip_before_filter :authenticate_user!, :only => [:index, :show, :create_retro_card, :delete_retro_card]
 
-  before_action :set_retro_board, only: [:show, :edit, :update, :destroy, :create_retro_card]
+  before_action :set_retro_board, only: [:show, :update, :destroy, :create_retro_card]
 
   DEFAULT_RETRO_PANELS = {'What went well?' => '#00a65a', 'What can be done better?' => '#dd4b39', 'Other ideas / suggestions' => '#f39c12'}
 
@@ -13,40 +13,59 @@ class RetroBoardsController < ApplicationController
   end
 
   def new
-    @retro_board = RetroBoard.new
+    project = nil
+    if params[:project].present?
+      project = current_user.projects.find_by_id(params[:project])
+    end
+    if project.blank?
+      project = current_user.projects.present? ? current_user.projects.last : Project.find_or_initialize_by(:name => 'Untitled Project')
+    end
+
+    @retro_board = RetroBoard.new(:name => 'Untitled Board', :project => project)
     DEFAULT_RETRO_PANELS.each do |panel|
       @retro_board.retro_panels.build(:name => panel[0], :color => panel[1])
     end
-  end
-
-  def edit
-    if @retro_board.retro_panels.blank?
-      DEFAULT_RETRO_PANELS.each do |panel|
-        @retro_board.retro_panels.build(:name => panel[0], :color => panel[1])
-      end
-    end
-
-  end
-
-  def create
-    if retro_board_params[:new_project_name].present?
-      @project = current_user.projects.create(name: retro_board_params[:new_project_name])
-    else
-      @project = current_user.projects.find(retro_board_params[:project_id])
-    end
-
-    @retro_board = @project.retro_boards.new(retro_board_params)
 
     respond_to do |format|
       if @retro_board.save
-        format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro board was successfully created.' }
+        format.html { redirect_to retro_board_path(@retro_board)}
         format.json { render action: 'show', status: :created, location: @retro_board }
       else
         format.html { render action: 'new' }
         format.json { render json: @retro_board.errors, status: :unprocessable_entity }
       end
     end
+
   end
+
+  # def edit
+  #   if @retro_board.retro_panels.blank?
+  #     DEFAULT_RETRO_PANELS.each do |panel|
+  #       @retro_board.retro_panels.build(:name => panel[0], :color => panel[1])
+  #     end
+  #   end
+  #
+  # end
+
+  # def create
+  #   if retro_board_params[:new_project_name].present?
+  #     @project = current_user.projects.create(name: retro_board_params[:new_project_name])
+  #   else
+  #     @project = current_user.projects.find(retro_board_params[:project_id])
+  #   end
+  #
+  #   @retro_board = @project.retro_boards.new(retro_board_params)
+  #
+  #   respond_to do |format|
+  #     if @retro_board.save
+  #       format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro board was successfully created.' }
+  #       format.json { render action: 'show', status: :created, location: @retro_board }
+  #     else
+  #       format.html { render action: 'new' }
+  #       format.json { render json: @retro_board.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   def update
     params_to_update = retro_board_params

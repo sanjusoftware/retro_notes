@@ -16,7 +16,7 @@
         = project.name
       .box-tools.pull-right
         %button.btn.btn-default
-          = link_to new_retro_board_path do
+          = link_to new_retro_board_path(:project => project) do
             %i.fa.fa-plus
             Add Board
         %button.btn.btn-default
