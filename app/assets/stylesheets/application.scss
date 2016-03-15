@@ -65,7 +65,7 @@ a.delete-default {
   min-width: 130px !important;
   padding: 4px !important;
 }
-
-.editable :hover {
-  border: 1px solid #cfcfcf;
- }
+.editable > i.fa-pencil {
+  color: #97a0b3;
+  font-size: 15px;
+}

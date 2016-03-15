@@ -3,8 +3,10 @@
     %i.ion.ion-clipboard
     %span.editable
       = best_in_place @retro_board, :name
+      %i.fa.fa-pencil.hide
     %small.editable
       = best_in_place @retro_board.project, :name, path: retro_board_path(@retro_board), param: 'retro_board[project]'
+      %i.fa.fa-pencil.hide
 
     %span.pull-right.actions
       = link_to retro_board_path(@retro_board), :method => :delete, data: { confirm: 'There is no looking back. Once deleted, its deleted forever! Are you sure?' } do
@@ -20,6 +22,7 @@
         %i.fa.fa-hand-o-down
         %span.editable
           = best_in_place retro_panel, :name, path: retro_board_retro_panel_path(@retro_board, retro_panel)
+          %i.fa.fa-pencil.hide
         %span{:id => "retro_panel_head_#{retro_panel.id}"}
           = "(#{retro_panel.retro_cards.count})"
       .row

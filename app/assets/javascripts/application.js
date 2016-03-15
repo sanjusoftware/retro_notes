@@ -36,6 +36,14 @@ $(document).on('ready page:change', function () {
 
     $(".best_in_place").best_in_place();
 
+    $('.editable').on('mouseover', function() {
+        $(this).find('.fa-pencil').removeClass('hide');
+    });
+
+    $('.editable').on('mouseout', function() {
+        $(this).find('.fa-pencil').addClass('hide');
+    });
+
     var clip = new ZeroClipboard($("#share_board_link"));
 });
 
