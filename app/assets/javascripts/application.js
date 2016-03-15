@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require best_in_place
+//= require zeroclipboard
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
@@ -34,6 +35,8 @@ $(document).on('ready page:change', function () {
     });
 
     $(".best_in_place").best_in_place();
+
+    var clip = new ZeroClipboard($("#share_board_link"));
 });
 
 $(document).ajaxError(function (e, xhr, settings) {

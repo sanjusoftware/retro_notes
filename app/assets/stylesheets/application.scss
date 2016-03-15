@@ -54,7 +54,18 @@ a.delete-default {
   color: #97a0b3;
 }
 
+.actions > a{
+  color: #cfcfcf
+}
+
+.actions > a:hover{
+  color: #505050
+}
 .colorpicker {
   min-width: 130px !important;
   padding: 4px !important;
 }
+
+.editable :hover {
+  border: 1px solid #cfcfcf;
+ }

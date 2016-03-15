@@ -9,9 +9,6 @@ class RetroBoardsController < ApplicationController
     @projects = current_user.present? ? current_user.projects : []
   end
 
-  def show
-  end
-
   def new
     project = nil
     if params[:project].present?
@@ -31,41 +28,12 @@ class RetroBoardsController < ApplicationController
         format.html { redirect_to retro_board_path(@retro_board)}
         format.json { render action: 'show', status: :created, location: @retro_board }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'show' }
         format.json { render json: @retro_board.errors, status: :unprocessable_entity }
       end
     end
 
   end
-
-  # def edit
-  #   if @retro_board.retro_panels.blank?
-  #     DEFAULT_RETRO_PANELS.each do |panel|
-  #       @retro_board.retro_panels.build(:name => panel[0], :color => panel[1])
-  #     end
-  #   end
-  #
-  # end
-
-  # def create
-  #   if retro_board_params[:new_project_name].present?
-  #     @project = current_user.projects.create(name: retro_board_params[:new_project_name])
-  #   else
-  #     @project = current_user.projects.find(retro_board_params[:project_id])
-  #   end
-  #
-  #   @retro_board = @project.retro_boards.new(retro_board_params)
-  #
-  #   respond_to do |format|
-  #     if @retro_board.save
-  #       format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro board was successfully created.' }
-  #       format.json { render action: 'show', status: :created, location: @retro_board }
-  #     else
-  #       format.html { render action: 'new' }
-  #       format.json { render json: @retro_board.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   def update
     params_to_update = retro_board_params
@@ -80,7 +48,7 @@ class RetroBoardsController < ApplicationController
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro board was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'show' }
         format.json { render json: @retro_board.errors, status: :unprocessable_entity }
       end
     end
@@ -174,7 +142,7 @@ class RetroBoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def retro_board_params
-      params.require(:retro_board).permit(:name, :new_project_name, :project_id, project: [:name], retro_panels_attributes: [:id, :name, :color], retro_card: [:description => :string])
+      params.require(:retro_board).permit(:name, :project_id, project: [:name], retro_card: [:description => :string])
     end
 
     def retro_card_params

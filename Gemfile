@@ -38,6 +38,7 @@ gem 'rename'
 gem 'rails_12factor', group: :production
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'best_in_place', '~> 3.0.1'
+gem 'zeroclipboard-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

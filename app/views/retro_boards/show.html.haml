@@ -1,16 +1,24 @@
 %section.content-header
   %h1.text-center
     %i.ion.ion-clipboard
-    = best_in_place @retro_board, :name
-    %small
+    %span.editable
+      = best_in_place @retro_board, :name
+    %small.editable
       = best_in_place @retro_board.project, :name, path: retro_board_path(@retro_board), param: 'retro_board[project]'
 
+    %span.pull-right.actions
+      = link_to retro_board_path(@retro_board), :method => :delete, data: { confirm: 'There is no looking back. Once deleted, its deleted forever! Are you sure?' } do
+        %i.fa.fa-trash-o
+      %a#share_board_link{href: '#', 'data-clipboard-target' => 'board_link', :title => 'Copy board link'}
+        #board_link.hide = retro_board_path(@retro_board)
+        %i.fa.fa-share-alt
 .row
   - @retro_board.retro_panels.each do |retro_panel|
     .col-md-4
       %h3.text-center{:style => "color : #{retro_panel.color}"}
         %i.fa.fa-hand-o-down
-        = best_in_place retro_panel, :name, path: retro_board_retro_panel_path(@retro_board, retro_panel)
+        %span.editable
+          = best_in_place retro_panel, :name, path: retro_board_retro_panel_path(@retro_board, retro_panel)
         %span{:id => "retro_panel_head_#{retro_panel.id}"}
           = "(#{retro_panel.retro_cards.count})"
       .row
