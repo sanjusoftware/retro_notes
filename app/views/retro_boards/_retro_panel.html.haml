@@ -8,9 +8,9 @@
         .box-tools.pull-right
           %button.btn.btn-box-tool{"data-widget" => "remove"}
           = link_to delete_retro_card_path(retro_card), :method => :delete, class: 'btn btn-box-tool delete', remote: true do
-            %i.fa.fa-times
-      .box-body
-        = retro_card.description
+            %i.fa.fa-trash-o
+      .box-body.editable
+        = best_in_place retro_card, :description, as: :textarea, path: update_retro_card_path(retro_panel.retro_board, retro_panel, retro_card), param: 'retro_board[retro_card]'
       .box-footer
         .box-tools.pull-right
           - if current_user && current_user.voted_as_when_voted_for(retro_card)

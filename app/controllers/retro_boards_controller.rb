@@ -134,6 +134,18 @@ class RetroBoardsController < ApplicationController
     end
   end
 
+  def update_retro_card
+    @retro_card = RetroCard.find_by_id(params[:id])
+
+    respond_to do |format|
+      if @retro_card.update_attribute(:description, retro_board_params[:retro_card][:description])
+        format.json { head :no_content }
+      else
+        format.json { render json: @retro_card.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_retro_board
@@ -142,7 +154,7 @@ class RetroBoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def retro_board_params
-      params.require(:retro_board).permit(:name, :project_id, project: [:name], retro_card: [:description => :string])
+      params.require(:retro_board).permit(:name, :project_id, project: [:name], retro_card: [:description])
     end
 
     def retro_card_params

@@ -10,7 +10,8 @@
       = link_to retro_board_path(@retro_board), :method => :delete, data: { confirm: 'There is no looking back. Once deleted, its deleted forever! Are you sure?' } do
         %i.fa.fa-trash-o
       %a#share_board_link{href: '#', 'data-clipboard-target' => 'board_link', :title => 'Copy board link'}
-        #board_link.hide = retro_board_path(@retro_board)
+        #board_link.hide
+          = retro_board_path(@retro_board)
         %i.fa.fa-share-alt
 .row
   - @retro_board.retro_panels.each do |retro_panel|
