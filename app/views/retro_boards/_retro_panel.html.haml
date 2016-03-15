@@ -1,22 +1,19 @@
-- retro_panel.retro_cards.each do |retro_card|
-  .col-md-6.col-sm-12
-    #retro_card.box{:style => "border-top-color : #{retro_panel.color}"}
-      .box-header
-        %span.badge{"data-original-title" => pluralize(retro_card.get_upvotes.size, 'upvote'), "data-toggle" => 'tooltip'}
-          = retro_card.get_upvotes.size
-          %i.fa.fa-thumbs-up
-        .box-tools.pull-right
-          %button.btn.btn-box-tool{"data-widget" => "remove"}
-          = link_to delete_retro_card_path(retro_card), :method => :delete, class: 'btn btn-box-tool delete', remote: true do
-            %i.fa.fa-trash-o
-      .box-body.editable
-        = best_in_place retro_card, :description, as: :textarea, path: update_retro_card_path(retro_panel.retro_board, retro_panel, retro_card), param: 'retro_board[retro_card]'
-        %i.fa.fa-pencil.hide
-      .box-footer
-        .box-tools.pull-right
-          - if current_user && current_user.voted_as_when_voted_for(retro_card)
-            = link_to downvote_retro_card_path(retro_card), class: 'btn btn-box-tool upvoted', data: {"original-title" => 'Downvote', 'toggle' => 'tooltip'}, remote: true do
-              %i.fa.fa-thumbs-down.plus-one
-          - else
-            = link_to upvote_retro_card_path(retro_card), class: 'btn btn-box-tool', data: {"original-title" => 'Upvote', 'toggle' => 'tooltip'}, remote: true do
-              %i.fa.fa-thumbs-up.plus-one
+.col-md-4
+  %h3.text-center{:style => "color : #{retro_panel.color}"}
+    %i.fa.fa-hand-o-down
+    %span.editable
+      = best_in_place retro_panel, :name, path: retro_board_retro_panel_path(retro_board, retro_panel)
+      %i.fa.fa-pencil.hide
+    %span{:id => "retro_panel_head_#{retro_panel.id}"}
+      = "(#{retro_panel.retro_cards.count})"
+  .row
+    .col-md-12.col-sm-12
+      = form_for RetroCard.new, url: "/retro_boards/#{retro_board.id}/retro_panels/#{retro_panel.id}", :remote => true, :html => {:class => 'form-horizontal'} do |f|
+        .input-group
+          = f.text_field :description, :class => 'form-control', :placeholder => "#{retro_panel.name} ...", :required => 'true', :id => "add_card_retro_panel_#{retro_panel.id}"
+          %span.input-group-btn
+            = f.submit '+', :class => 'btn btn-default btn-flat pull-right'
+  %br
+  .row
+    %div{:id => "retro_panel_cards_#{retro_panel.id}"}
+      = render :partial => 'retro_boards/retro_panel_cards', locals: {retro_board: retro_board, retro_panel: retro_panel}
