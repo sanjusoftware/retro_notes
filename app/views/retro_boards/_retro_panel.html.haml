@@ -1,5 +1,9 @@
-.col-md-4
+.col-md-4{:id => "retro_panel_#{retro_panel.id}"}
   %h3.text-center{:style => "color : #{retro_panel.color}"}
+    %span.pull-right.actions
+      = link_to retro_board_retro_panel_path(@retro_board, retro_panel), :method => :delete, remote: true, class: 'delete' do
+        %i.fa.fa-trash-o
+
     %i.fa.fa-hand-o-down
     %span.editable
       = best_in_place retro_panel, :name, path: retro_board_retro_panel_path(retro_board, retro_panel)

@@ -24,7 +24,7 @@
 //= require_tree .
 
 
-$(document).on('ready page:change', function () {
+$(document).on('page:change', function () {
 
     $('select.we_select').select2();
     $('.my-colorpicker').colorpicker({
@@ -38,13 +38,21 @@ $(document).on('ready page:change', function () {
 
     $('.editable').on('mouseover', function() {
         $(this).find('.fa-pencil').removeClass('hide');
-    });
-
-    $('.editable').on('mouseout', function() {
+    }).on('mouseout', function() {
         $(this).find('.fa-pencil').addClass('hide');
     });
 
-    var clip = new ZeroClipboard($("#share_board_link"));
+    $('#create_panel_link').on('click', function(){
+        $("#create_panel_form").submit();
+    });
+
+    new ZeroClipboard($("#copy_to_clipboard")).on( "aftercopy", function( event ) {
+        $.ajax({
+            type: "GET",
+            url: "/copy_to_clipboard"
+        });
+
+    } );
 });
 
 $(document).ajaxError(function (e, xhr, settings) {

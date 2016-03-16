@@ -10,6 +10,7 @@ RetroNotes::Application.routes.draw do
   end
 
   get '/401_ajax', to: 'application#handle_401_ajax'
+  get '/copy_to_clipboard', to: 'application#copy_to_clipboard'
 
   delete '/delete_project/:id', to: 'retro_boards#delete_project', as: 'delete_project'
   delete '/delete_retro_card/:id', to: 'retro_boards#delete_retro_card', as: 'delete_retro_card'

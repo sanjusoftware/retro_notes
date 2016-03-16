@@ -13,18 +13,27 @@ class RetroPanelsController < ApplicationController
   end
 
   def create
-
     @retro_board = RetroBoard.find(params[:retro_board_id])
     @retro_panel = RetroPanel.new(retro_panel_params)
     @retro_panel.retro_board = @retro_board
 
-    binding.pry
     respond_to do |format|
       if @retro_panel.save
         format.js
       else
         format.json { render json: @retro_panel.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @retro_board = RetroBoard.find(params[:retro_board_id])
+    @retro_panel_id = @retro_panel.id
+    @retro_panel.destroy
+    respond_to do |format|
+      format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro panel was successfully deleted.' }
+      format.js { render action: 'remove_retro_panel', status: :ok}
+      format.json { head :no_content }
     end
   end
 

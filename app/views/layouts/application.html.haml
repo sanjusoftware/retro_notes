@@ -32,11 +32,11 @@
             %li.active Here
         / Main content
         %section.content
+          #flash_message
           - if notice
             = render :partial => 'layouts/notice', locals: {notice: notice}
-          #alert
-            - if alert
-              = render :partial => 'layouts/alert', locals: {alert: alert}
+          - if alert
+            = render :partial => 'layouts/alert', locals: {alert: alert}
           = yield
       / /.content
       / /.content-wrapper

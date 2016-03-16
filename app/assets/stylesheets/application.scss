@@ -47,7 +47,7 @@
 }
 
 a.delete:hover {
-  color: #dd4b39;
+  color: #dd4b39 !important;
 }
 
 a.delete-default {
@@ -55,12 +55,14 @@ a.delete-default {
 }
 
 .actions > a{
-  color: #cfcfcf
+  color: #cfcfcf;
+  font-size: 15px;
 }
 
 .actions > a:hover{
   color: #505050
 }
+
 .colorpicker {
   min-width: 130px !important;
   padding: 4px !important;

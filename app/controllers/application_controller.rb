@@ -16,4 +16,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def copy_to_clipboard
+    respond_to do |f|
+      f.js {render partial: 'layouts/copy_to_clipboard'}
+    end
+  end
+
 end

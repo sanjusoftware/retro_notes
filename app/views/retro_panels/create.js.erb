@@ -1,1 +1,2 @@
 $("#retro_panels").append("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_board: @retro_board, retro_panel: @retro_panel.reload} %>");
+$("#flash_message").html("<%=j render :partial => 'layouts/notice', locals: {notice: 'New panel added'} %>");
