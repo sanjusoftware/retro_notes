@@ -59,6 +59,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    color-generator (0.0.4)
     devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -229,6 +230,7 @@ DEPENDENCIES
   adminlte2-rails
   best_in_place (~> 3.0.1)
   coffee-rails (~> 4.0.0)
+  color-generator
   devise
   friendly_id
   haml-rails
