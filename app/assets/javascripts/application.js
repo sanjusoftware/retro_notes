@@ -10,29 +10,26 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+// Do not change the below 3 ordering
+
 //= require jquery
+//= require jquery_ujs
+// Do not change the above 3 ordering
+
 //= require best_in_place
 //= require zeroclipboard
 //= require bootstrap-sprockets
-//= require jquery_ujs
-//= require turbolinks
 //= require jquery.slimscroll
 //= require iCheck
 //= require select2
 //= require bootstrap-colorpicker
 //= require app
+//= require turbolinks
+
 //= require_tree .
 
-
-$(document).on('page:change', function () {
-
-    $('select.we_select').select2();
-    $('.my-colorpicker').colorpicker({
-        'format': 'hex'
-        }
-    ).on('changeColor.colorpicker', function(event) {
-        $(this).parent().find('.panel-name').css('color', event.color.toHex());
-    });
+$(document).on('page:update', function () {
+    //add javascript that needs to be applied to dynamically added elements in this block
 
     $(".best_in_place").best_in_place();
 
@@ -41,9 +38,19 @@ $(document).on('page:change', function () {
     }).on('mouseout', function() {
         $(this).find('.fa-pencil').addClass('hide');
     });
+});
 
-    $('#create_panel_link').on('click', function(){
-        $("#create_panel_form").submit();
+$(document).on('page:change', function () {
+    $('select.we_select').select2();
+    $('.my-colorpicker').colorpicker({
+        'format': 'hex'
+        }
+    ).on('changeColor.colorpicker', function(event) {
+        $(this).parent().find('.panel-name').css('color', event.color.toHex());
+    });
+
+    $('#add_new_panel').on('click', function(){
+        $("#add_new_panel_form").submit();
     });
 
     new ZeroClipboard($("#copy_to_clipboard")).on( "aftercopy", function( event ) {

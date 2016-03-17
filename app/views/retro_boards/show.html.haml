@@ -9,10 +9,9 @@
       %i.fa.fa-pencil.hide
 
     %span.pull-right.actions
-      = form_for [@retro_board, RetroPanel.new], html: {id: 'create_panel_form'}, remote: true do |f|
+      = form_for [@retro_board, RetroPanel.new], html: {id: 'add_new_panel_form'}, remote: true do |f|
         = f.hidden_field :name, value: 'Untitled Panel'
-        = f.hidden_field :color, value: '#999'
-      = link_to '#', id: 'create_panel_link', :title => 'Add New Panel' do
+      = link_to '#', id: 'add_new_panel', :title => 'Add New Panel' do
         %i.fa.fa-hand-o-down
       %a#copy_to_clipboard{href: '#', 'data-clipboard-target' => 'board_link', :title => 'Copy board link'}
         #board_link.hide

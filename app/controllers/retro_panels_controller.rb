@@ -1,4 +1,5 @@
 class RetroPanelsController < ApplicationController
+  include RetroBoardsHelper
 
   before_action :set_retro_panel, only: [:update, :destroy]
 
@@ -16,6 +17,8 @@ class RetroPanelsController < ApplicationController
     @retro_board = RetroBoard.find(params[:retro_board_id])
     @retro_panel = RetroPanel.new(retro_panel_params)
     @retro_panel.retro_board = @retro_board
+    @retro_panel.name = 'Untitled Panel' if @retro_panel.name.blank?
+    @retro_panel.color = random_color if @retro_panel.color.blank?
 
     respond_to do |format|
       if @retro_panel.save
