@@ -1,18 +1,21 @@
-.col-md-4{:id => "retro_panel_#{retro_panel.id}"}
+.col-md-4
   %h3.text-center{:style => "color : #{retro_panel.color}"}
     %span.pull-right.actions
-      = link_to retro_board_retro_panel_path(@retro_board, retro_panel), :method => :delete, remote: true, class: 'delete' do
+      = link_to retro_board_retro_panel_path(retro_panel.retro_board, retro_panel), :method => :delete, remote: true, class: 'delete' do
         %i.fa.fa-trash-o
+
+    %span.pull-left.my-colorpicker{:id => retro_panel.id}
+      %i.fa.fa-stop{:style => "background-color: #{retro_panel.color};"}
 
     %i.fa.fa-hand-o-down
     %span.editable
-      = best_in_place retro_panel, :name, path: retro_board_retro_panel_path(retro_board, retro_panel)
+      = best_in_place retro_panel, :name, url: retro_board_retro_panel_path(retro_panel.retro_board, retro_panel)
       %i.fa.fa-pencil.hide
     %span{:id => "retro_panel_head_#{retro_panel.id}"}
       = "(#{retro_panel.retro_cards.count})"
   .row
     .col-md-12.col-sm-12
-      = form_for RetroCard.new, url: "/retro_boards/#{retro_board.id}/retro_panels/#{retro_panel.id}", :remote => true, :html => {:class => 'form-horizontal'} do |f|
+      = form_for RetroCard.new, url: "/retro_boards/#{retro_panel.retro_board.id}/retro_panels/#{retro_panel.id}", :remote => true, :html => {:class => 'form-horizontal'} do |f|
         .input-group
           = f.text_field :description, :class => 'form-control', :placeholder => "#{retro_panel.name} ...", :required => 'true', :id => "add_card_retro_panel_#{retro_panel.id}"
           %span.input-group-btn
@@ -20,4 +23,4 @@
   %br
   .row
     %div{:id => "retro_panel_cards_#{retro_panel.id}"}
-      = render :partial => 'retro_boards/retro_panel_cards', locals: {retro_board: retro_board, retro_panel: retro_panel}
+      = render :partial => 'retro_boards/retro_panel_cards', locals: {retro_panel: retro_panel}

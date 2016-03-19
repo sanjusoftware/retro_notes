@@ -7,6 +7,7 @@ class RetroPanelsController < ApplicationController
     respond_to do |format|
       if @retro_panel.update(retro_panel_params)
         format.json { head :no_content }
+        format.js { render 'refresh', status: :ok}
       else
         format.json { render json: @retro_panel.errors, status: :unprocessable_entity }
       end
@@ -35,7 +36,7 @@ class RetroPanelsController < ApplicationController
     @retro_panel.destroy
     respond_to do |format|
       format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro panel was successfully deleted.' }
-      format.js { render action: 'remove_retro_panel', status: :ok}
+      format.js { render action: 'delete', status: :ok}
       format.json { head :no_content }
     end
   end

@@ -78,7 +78,7 @@ class RetroBoardsController < ApplicationController
 
     @retro_card.destroy
     respond_to do |format|
-      format.js { render action: 'refresh_retro_panel', status: :ok}
+      format.js { render 'retro_panels/refresh', status: :ok}
       format.json { head :no_content }
     end
   end
@@ -95,7 +95,7 @@ class RetroBoardsController < ApplicationController
       else
         current_user.up_votes @retro_card
         format.json { head :no_content }
-        format.js { render action: 'refresh_retro_panel', status: :ok }
+        format.js { render 'retro_panels/refresh', status: :ok }
       end
 
     end
@@ -110,7 +110,7 @@ class RetroBoardsController < ApplicationController
       if current_user.voted_as_when_voted_for @retro_card
         current_user.down_votes @retro_card
         format.json { head :no_content }
-        format.js { render action: 'refresh_retro_panel', status: :ok }
+        format.js { render 'retro_panels/refresh', status: :ok }
       else
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
         format.js { render json: @retro_card.errors, status: :unprocessable_entity }
@@ -125,7 +125,7 @@ class RetroBoardsController < ApplicationController
       if @retro_card.save
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Card was successfully added.' }
         format.json { render action: 'show', status: :created, location: @retro_card }
-        format.js { render action: 'refresh_retro_panel', status: :created}
+        format.js { render 'retro_panels/refresh', status: :created}
       else
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Card could not be added.' }
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }

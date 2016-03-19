@@ -1,0 +1,1 @@
+$('#retro_panel_'+<%=@retro_panel.id%>).html("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_panel: @retro_panel.reload} %>");

@@ -22,4 +22,5 @@
 
 .row{:id => 'retro_panels'}
   - @retro_board.retro_panels.each do |retro_panel|
-    = render :partial => 'retro_boards/retro_panel', locals: {retro_board: @retro_board, retro_panel: retro_panel}
+    %span{:id => "retro_panel_#{retro_panel.id}"}
+      = render :partial => 'retro_boards/retro_panel', locals: {retro_panel: retro_panel}

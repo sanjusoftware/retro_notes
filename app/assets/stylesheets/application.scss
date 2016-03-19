@@ -63,6 +63,10 @@ a.delete-default {
   color: #505050
 }
 
+.my-colorpicker:hover {
+  cursor: pointer;
+}
+
 .colorpicker {
   min-width: 130px !important;
   padding: 4px !important;

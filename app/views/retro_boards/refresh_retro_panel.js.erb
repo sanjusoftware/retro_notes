@@ -1,3 +1,0 @@
-$("#retro_panel_cards_"+ <%=@retro_panel.id%>).html("<%= j render partial: 'retro_boards/retro_panel_cards', locals: {retro_board: @retro_board, retro_panel: @retro_panel.reload} %>");
-$('#retro_panel_head_'+ <%=@retro_panel.id%>).text("(<%= @retro_panel.retro_cards.count %>)");
-$('#add_card_retro_panel_'+ <%=@retro_panel.id%>).val('');

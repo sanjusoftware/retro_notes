@@ -38,16 +38,22 @@ $(document).on('page:update', function () {
     }).on('mouseout', function() {
         $(this).find('.fa-pencil').addClass('hide');
     });
+
+    $('.my-colorpicker').colorpicker({
+        'format': 'hex'
+    }).on('changeColor.colorpicker', function(event) {
+        console.log(event.color.toHex());
+        $.ajax({
+            type: "PUT",
+            url: "/retro_boards/another-board/retro_panels/" + $(this).attr('id')+'.js',
+            data: {'retro_panel' : {'color' : event.color.toHex()} }
+        });
+    });
+
 });
 
 $(document).on('page:change', function () {
     $('select.we_select').select2();
-    $('.my-colorpicker').colorpicker({
-        'format': 'hex'
-        }
-    ).on('changeColor.colorpicker', function(event) {
-        $(this).parent().find('.panel-name').css('color', event.color.toHex());
-    });
 
     $('#add_new_panel').on('click', function(){
         $("#add_new_panel_form").submit();
