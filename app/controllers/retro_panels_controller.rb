@@ -32,7 +32,7 @@ class RetroPanelsController < ApplicationController
 
   def destroy
     @retro_board = RetroBoard.find(params[:retro_board_id])
-    @retro_panel_id = @retro_panel.id
+    @retro_panel_id = params[:id]
     @retro_panel.destroy
     respond_to do |format|
       format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro panel was successfully deleted.' }

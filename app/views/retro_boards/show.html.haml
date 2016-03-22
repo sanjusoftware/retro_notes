@@ -1,11 +1,11 @@
-%section.content-header
-  %h1.text-center
+%row
+  %h1.text-center.board-title
     %i.ion.ion-clipboard
     %span.editable
       = best_in_place @retro_board, :name
       %i.fa.fa-pencil.hide
     %small.editable
-      = best_in_place @retro_board.project, :name, path: retro_board_path(@retro_board), param: 'retro_board[project]'
+      = best_in_place @retro_board.project, :name, url: retro_board_path(@retro_board), param: 'retro_board[project]'
       %i.fa.fa-pencil.hide
 
     %span.pull-right.actions
@@ -22,5 +22,6 @@
 
 .row{:id => 'retro_panels'}
   - @retro_board.retro_panels.each do |retro_panel|
-    %span{:id => "retro_panel_#{retro_panel.id}"}
-      = render :partial => 'retro_boards/retro_panel', locals: {retro_panel: retro_panel}
+    -#%span.pull-left.my-colorpicker{:id => retro_panel.id}
+      %i.fa.fa-stop{:style => "color: #{retro_panel.color};"}
+    = render :partial => 'retro_boards/retro_panel', locals: {retro_panel: retro_panel}

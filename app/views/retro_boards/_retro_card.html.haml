@@ -1,0 +1,21 @@
+.col-md-6.col-sm-12
+  #retro_card.box{:style => "border-top-color : #{retro_card.retro_panel.color}"}
+    .box-header
+      %span.badge{"data-original-title" => pluralize(retro_card.get_upvotes.size, 'upvote'), "data-toggle" => 'tooltip'}
+        = retro_card.get_upvotes.size
+        %i.fa.fa-thumbs-up
+      .box-tools.pull-right
+        %button.btn.btn-box-tool{"data-widget" => "remove"}
+        = link_to delete_retro_card_path(retro_card), :method => :delete, class: 'btn btn-box-tool delete', remote: true do
+          %i.fa.fa-trash-o
+    .box-body.editable
+      = best_in_place retro_card, :description, as: :textarea, url: update_retro_card_path(retro_card.retro_panel.retro_board, retro_card.retro_panel, retro_card), param: 'retro_board[retro_card]'
+      %i.fa.fa-pencil.hide
+    .box-footer
+      .box-tools.pull-right
+        - if current_user && current_user.voted_as_when_voted_for(retro_card)
+          = link_to downvote_retro_card_path(retro_card), class: 'btn btn-box-tool upvoted', data: {"original-title" => 'Downvote', 'toggle' => 'tooltip'}, remote: true do
+            %i.fa.fa-thumbs-down.plus-one
+        - else
+          = link_to upvote_retro_card_path(retro_card), class: 'btn btn-box-tool', data: {"original-title" => 'Upvote', 'toggle' => 'tooltip'}, remote: true do
+            %i.fa.fa-thumbs-up.plus-one
