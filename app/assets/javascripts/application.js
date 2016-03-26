@@ -72,8 +72,8 @@ $(document).on('page:update', function () {
                 var to_panel = $(evt.to).attr('id').split('_')[3];
                 $.ajax({
                     type: "PUT",
-                    url: "/retro_boards/another-board/retro_panels/" + $(this).attr('id') + '.js',
-                    data: {'retro_panel': {'color': event.color.toHex()}}
+                    url: 1+"/retro_panels/"+from_panel+"/retro_cards/" + retro_card_id + '.js',
+                    data: {'retro_card': {'retro_panel_id': to_panel}}
                 });
 
             }

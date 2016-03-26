@@ -56,7 +56,9 @@ class RetroCardsController < ApplicationController
   def update
     respond_to do |format|
       if @retro_card.update(retro_card_params)
+        @retro_panel = @retro_card.retro_panel
         format.json { head :no_content }
+        format.js { render 'retro_panels/refresh', status: :created}
       else
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
       end
@@ -82,7 +84,7 @@ class RetroCardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def retro_card_params
-      params.require(:retro_card).permit(:description)
+      params.require(:retro_card).permit(:description, :retro_panel_id)
     end
 
 end
