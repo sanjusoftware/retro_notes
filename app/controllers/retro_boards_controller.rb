@@ -37,7 +37,7 @@ class RetroBoardsController < ApplicationController
 
   def update
     params_to_update = retro_board_params
-    if retro_board_params[:project][:name].present?
+    if retro_board_params[:project].present? && retro_board_params[:project][:name].present?
       @project = current_user.projects.find_or_create_by(name: retro_board_params[:project][:name])
       params_to_update[:project_id] = @project.id
       params_to_update.delete(:project)
@@ -79,7 +79,7 @@ class RetroBoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def retro_board_params
-      params.require(:retro_board).permit(:name, :project_id, project: [:name], retro_card: [:description])
+      params.require(:retro_board).permit(:name, :project_id, project: [:name])
     end
 
 end
