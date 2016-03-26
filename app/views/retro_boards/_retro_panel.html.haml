@@ -12,7 +12,7 @@
       = "(#{retro_panel.retro_cards.count})"
   .row
     .col-md-12.col-sm-12
-      = form_for RetroCard.new, url: "/retro_boards/#{retro_panel.retro_board.id}/retro_panels/#{retro_panel.id}", :remote => true, :html => {:class => 'form-horizontal'} do |f|
+      = form_for [retro_panel.retro_board, retro_panel, RetroCard.new], :remote => true, :html => {:class => 'form-horizontal'} do |f|
         .input-group
           = f.text_field :description, :class => 'form-control', :placeholder => "#{retro_panel.name} ...", :required => 'true', :id => "add_card_retro_panel_#{retro_panel.id}"
           %span.input-group-btn
