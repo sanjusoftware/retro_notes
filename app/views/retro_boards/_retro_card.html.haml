@@ -1,5 +1,5 @@
-.col-md-6.col-sm-12
-  #retro_card.box{:style => "border-top-color : #{retro_card.retro_panel.color}"}
+.col-md-6.col-sm-12.retro-card{id: "retro_card_#{retro_card.id}"}
+  .box{:style => "border-top-color : #{retro_card.retro_panel.color}"}
     .box-header
       %span.badge{"data-original-title" => pluralize(retro_card.get_upvotes.size, 'upvote'), "data-toggle" => 'tooltip'}
         = retro_card.get_upvotes.size

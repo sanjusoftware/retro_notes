@@ -48,13 +48,36 @@ function createColorPicker() {
 
 $(document).on('page:update', function () {
     //add javascript that needs to be applied to dynamically added elements in this block
-    createColorPicker();
+    //createColorPicker();
+
     $(".best_in_place").best_in_place();
 
     $('.editable').on('mouseover', function() {
         $(this).find('.fa-pencil').removeClass('hide');
     }).on('mouseout', function() {
         $(this).find('.fa-pencil').addClass('hide');
+    });
+    //var retro_panel = document.getElementsByClassName(".retro_panel");
+    //Sortable.create(list, { /* options */ });
+
+    $('.retro_cards').each(function (i) {
+        var retro_panel = $('.retro_cards')[i];
+        Sortable.create(retro_panel, {
+            draggable: ".retro-card",
+            animation: 150,
+            group: 'shared',
+            onAdd: function (evt) {
+                var retro_card_id = $(evt.item).attr('id').split('_')[2];
+                var from_panel = $(evt.from).attr('id').split('_')[3];
+                var to_panel = $(evt.to).attr('id').split('_')[3];
+                $.ajax({
+                    type: "PUT",
+                    url: "/retro_boards/another-board/retro_panels/" + $(this).attr('id') + '.js',
+                    data: {'retro_panel': {'color': event.color.toHex()}}
+                });
+
+            }
+        });
     });
 
 });

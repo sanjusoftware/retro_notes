@@ -17,7 +17,7 @@
         #board_link.hide
           = request.original_url
         %i.fa.fa-share-alt
-      = link_to retro_board_path(@retro_board), :method => :delete, class: 'delete', data: { confirm: 'There is no looking back. Once deleted, its deleted forever! Are you sure?' } do
+      = link_to retro_board_path(@retro_board), :method => :delete, class: 'delete' do
         %i.fa.fa-trash-o
 
 .row{:id => 'retro_panels'}

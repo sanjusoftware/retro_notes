@@ -31,10 +31,14 @@
   z-index: 800;
 }
 
-#retro_card {
+.retro-card {
   .box-footer {
     border-top: none;
     padding: 0 10px 0 0;
+  }
+
+  .box-header {
+    cursor: move;
   }
 
   .plus-one {
