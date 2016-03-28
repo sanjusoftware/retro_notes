@@ -12,8 +12,9 @@ class RetroBoardsController < ApplicationController
   def new
     project = nil
     if params[:project].present?
-      project = current_user.projects.find_by_id(params[:project])
+      project = current_user.projects.find(params[:project])
     end
+
     if project.blank?
       project = current_user.projects.present? ? current_user.projects.last : Project.find_or_initialize_by(:name => 'Untitled Project')
     end
