@@ -65,6 +65,23 @@ class RetroCardsController < ApplicationController
     end
   end
 
+  def merge
+    merge_to = RetroCard.find(params[:card_to_merge_to])
+    card_to_merge = RetroCard.find(params[:card_to_merge])
+
+    card_to_merge.retro_panel = merge_to.retro_panel
+
+    respond_to do |format|
+      if card_to_merge.save
+        @retro_panel = card_to_merge.retro_panel
+        format.json { head :no_content }
+        format.js { render 'retro_panels/refresh', status: :created}
+      else
+        format.json { render json: card_to_merge.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     @retro_panel = @retro_card.retro_panel
     @retro_board = @retro_panel.retro_board

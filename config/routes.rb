@@ -19,6 +19,7 @@ RetroNotes::Application.routes.draw do
   get '/copy_to_clipboard', to: 'application#copy_to_clipboard'
 
   delete '/delete_project/:id', to: 'retro_boards#delete_project', as: 'delete_project'
+  put '/merge_cards', to: 'retro_cards#merge', as: 'merge_cards'
 
   root 'welcome#index'
 
