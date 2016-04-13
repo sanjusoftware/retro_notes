@@ -31,6 +31,12 @@
   z-index: 800;
 }
 
+.ui-state-active {
+  border: 1px dashed red;
+}
+.retro-cards {
+  min-height: 100px;
+}
 .retro-card {
   .box-footer {
     border-top: none;

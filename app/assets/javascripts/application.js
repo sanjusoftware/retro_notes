@@ -57,31 +57,34 @@ $(document).on('page:update', function () {
     }).on('mouseout', function() {
         $(this).find('.fa-pencil').addClass('hide');
     });
-    //var retro_panel = document.getElementsByClassName(".retro_panel");
-    //Sortable.create(list, { /* options */ });
 
     $(".retro-cards").droppable({
+        hoverClass: "ui-state-active",
         drop: function( event, ui ) {
             console.log('retro-cards');
             var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
+            console.log($(this).hasClass('retro-cards'));
             var card_dropped_on_id = $(this).attr('id').split('_')[2];
 
             console.log(card_dragged_id);
             console.log(card_dropped_on_id);
 
-            $.ajax({
-                type: "PUT",
-                url: '/merge_cards'+'.js',
-                data: {'card_to_merge': card_dragged_id, 'card_to_merge_to': card_dropped_on_id}
-            });
+            //$.ajax({
+            //    type: "PUT",
+            //    url: '/merge_cards'+'.js',
+            //    data: {'card_to_merge': card_dragged_id, 'card_to_merge_to': card_dropped_on_id}
+            //});
 
         }
     });
 
     $(".retro-card").draggable({
         zIndex: 100,
-        opacity: 0.5
+        opacity: 0.5,
+        greedy:true,
+        accept: '*'
     }).droppable({
+        hoverClass: "ui-state-active",
         drop: function( event, ui ) {
             console.log('retro-card');
             var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
