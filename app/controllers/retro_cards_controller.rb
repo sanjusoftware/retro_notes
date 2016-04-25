@@ -73,7 +73,7 @@ class RetroCardsController < ApplicationController
 
     respond_to do |format|
       if card_to_merge.save
-        @retro_panel = card_to_merge.retro_panel
+        @retro_panel = merge_to.retro_panel
         format.json { head :no_content }
         format.js { render 'retro_panels/refresh', status: :created}
       else
