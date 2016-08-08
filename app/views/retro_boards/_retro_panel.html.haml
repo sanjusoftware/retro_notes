@@ -11,13 +11,20 @@
     %span{:id => "retro_panel_head_#{retro_panel.id}"}
       = "(#{retro_panel.retro_cards.count})"
   .row
-    .col-md-12.col-sm-12
+    .col-md-12.col-sm-12{:id => "retro_panel_form_#{retro_panel.id}"}
       = form_for [retro_panel.retro_board, retro_panel, RetroCard.new], :remote => true, :html => {:class => 'form-horizontal'} do |f|
         .input-group
-          = f.text_field :description, :class => 'form-control', :placeholder => "#{retro_panel.name} ...", :required => 'true', :id => "add_card_retro_panel_#{retro_panel.id}"
+          = f.text_field :description, :class => 'form-control retro_panel_form_text', :placeholder => "#{retro_panel.name} ...", :required => 'true', :id => "add_card_retro_panel_#{retro_panel.id}"
           %span.input-group-btn
             = f.submit '+', :class => 'btn btn-default btn-flat pull-right'
   %br
   .row.retro-cards{:id => "retro_panel_cards_#{retro_panel.id}"}
-    - retro_panel.retro_cards.each do |retro_card|
-      = render :partial => 'retro_boards/retro_card', locals: {retro_card: retro_card}
+    - direct_retro_cards = retro_panel.direct_cards
+    - direct_retro_cards.each do |retro_card|
+      %ul.cards.col-md-6.col-sm-12{class: retro_card.matched_retro_cards.present? ? 'similar-cards' : ''}
+        = render :partial => 'retro_boards/retro_card', locals: {retro_card: retro_card}
+
+        - matched_cards = retro_card.matched_retro_cards
+        - if matched_cards.present?
+          - matched_cards.each do |matched_card|
+            = render :partial => 'retro_boards/retro_card', locals: {retro_card: matched_card}

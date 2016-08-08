@@ -52,16 +52,16 @@ $(document).on('page:update', function () {
 
     $(".best_in_place").best_in_place();
 
-    $('.editable').on('mouseover', function() {
+    $('.editable').on('mouseover', function () {
         $(this).find('.fa-pencil').removeClass('hide');
-    }).on('mouseout', function() {
+    }).on('mouseout', function () {
         $(this).find('.fa-pencil').addClass('hide');
     });
 
     $(".retro-cards").droppable({
         hoverClass: "ui-state-active",
-        drop: function( event, ui ) {
-            console.log('retro-cards');
+        drop: function (event, ui) {
+            console.log('=== droppable event start =====');
             var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
             console.log($(this).hasClass('retro-cards'));
             var card_dropped_on_id = $(this).attr('id').split('_')[2];
@@ -75,18 +75,19 @@ $(document).on('page:update', function () {
             //    data: {'card_to_merge': card_dragged_id, 'card_to_merge_to': card_dropped_on_id}
             //});
 
+            console.log('=== droppable event end =====');
         }
     });
 
     $(".retro-card").draggable({
         zIndex: 100,
         opacity: 0.5,
-        greedy:true,
+        greedy: true,
         accept: '*'
     }).droppable({
         hoverClass: "ui-state-active",
-        drop: function( event, ui ) {
-            console.log('retro-card');
+        drop: function (event, ui) {
+            console.log('==== draggable event ==== ');
             var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
             var card_dropped_on_id = $(this).attr('id').split('_')[2];
 
@@ -95,10 +96,11 @@ $(document).on('page:update', function () {
 
             $.ajax({
                 type: "PUT",
-                url: '/merge_cards'+'.js',
+                url: '/merge_cards' + '.js',
                 data: {'card_to_merge': card_dragged_id, 'card_to_merge_to': card_dropped_on_id}
             });
 
+            console.log('==== draggable event end==== ');
         }
     });
 
@@ -127,17 +129,30 @@ $(document).on('page:update', function () {
 $(document).on('page:change', function () {
     $('select.we_select').select2();
 
-    $('#add_new_panel').on('click', function(){
+    $("ul.cards").each(function () {
+        var no_of_cards = $(this).find("li.retro-card").length;
+        var card_height = $(this).find("li.retro-card .box").height();
+        $(this).find("li.retro-card").each(function (index, card) {
+            console.log('applying css');
+            //start applying below top from third element
+            $(card).css('top', (20 * (index)) + 'px');
+            $(card).css('z-index', (1 * (index)));
+        });
+
+        $(this).css('height', (no_of_cards * 20) + card_height + 'px')
+    });
+
+    $('#add_new_panel').on('click', function () {
         $("#add_new_panel_form").submit();
     });
 
-    new ZeroClipboard($("#copy_to_clipboard")).on( "aftercopy", function( event ) {
+    new ZeroClipboard($("#copy_to_clipboard")).on("aftercopy", function (event) {
         $.ajax({
             type: "GET",
             url: "/copy_to_clipboard"
         });
 
-    } );
+    });
 });
 
 $(document).ajaxError(function (e, xhr, settings) {

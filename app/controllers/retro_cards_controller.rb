@@ -69,6 +69,7 @@ class RetroCardsController < ApplicationController
     merge_to = RetroCard.find(params[:card_to_merge_to])
     card_to_merge = RetroCard.find(params[:card_to_merge])
 
+    merge_to.matched_retro_cards << card_to_merge
     card_to_merge.retro_panel = merge_to.retro_panel
 
     respond_to do |format|

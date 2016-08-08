@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  retro_card_id: 1
+  matched_retro_card_id: 1
+
+two:
+  retro_card_id: 1
+  matched_retro_card_id: 1
