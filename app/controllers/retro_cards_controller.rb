@@ -44,7 +44,7 @@ class RetroCardsController < ApplicationController
       if @retro_card.save
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Card was successfully added.' }
         format.json { render action: 'show', status: :created, location: @retro_card }
-        format.js { render 'retro_panels/refresh', status: :created}
+        format.js { render 'retro_panels/refresh', status: :created }
       else
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Card could not be added.' }
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
@@ -58,7 +58,7 @@ class RetroCardsController < ApplicationController
       if @retro_card.update(retro_card_params)
         @retro_panel = @retro_card.retro_panel
         format.json { head :no_content }
-        format.js { render 'retro_panels/refresh', status: :created}
+        format.js { render 'retro_panels/refresh', status: :created }
       else
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
       end
@@ -69,14 +69,16 @@ class RetroCardsController < ApplicationController
     merge_to = RetroCard.find(params[:card_to_merge_to])
     card_to_merge = RetroCard.find(params[:card_to_merge])
 
-    merge_to.matched_retro_cards << card_to_merge
-    card_to_merge.retro_panel = merge_to.retro_panel
+    unless merge_to.matched_retro_cards.map(&:id).include?(card_to_merge.id) || card_to_merge.matched_retro_cards.map(&:id).include?(merge_to.id)
+      merge_to.matched_retro_cards << card_to_merge
+      card_to_merge.retro_panel = merge_to.retro_panel
+    end
 
     respond_to do |format|
       if card_to_merge.save
         @retro_panel = merge_to.retro_panel
         format.json { head :no_content }
-        format.js { render 'retro_panels/refresh', status: :created}
+        format.js { render 'retro_panels/refresh', status: :created }
       else
         format.json { render json: card_to_merge.errors, status: :unprocessable_entity }
       end
@@ -87,22 +89,24 @@ class RetroCardsController < ApplicationController
     @retro_panel = @retro_card.retro_panel
     @retro_board = @retro_panel.retro_board
 
+    Match.where(matched_retro_card_id: @retro_card.id).delete_all
     @retro_card.destroy
+
     respond_to do |format|
-      format.js { render 'retro_panels/refresh', status: :ok}
+      format.js { render 'retro_panels/refresh', status: :ok }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_retro_card
-      @retro_card = RetroCard.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_retro_card
+    @retro_card = RetroCard.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def retro_card_params
-      params.require(:retro_card).permit(:description, :retro_panel_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def retro_card_params
+    params.require(:retro_card).permit(:description, :retro_panel_id)
+  end
 
 end

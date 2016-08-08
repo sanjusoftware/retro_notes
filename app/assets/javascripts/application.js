@@ -46,6 +46,21 @@ function createColorPicker() {
     });
 }
 
+function rearrange_cards() {
+    $("ul.cards").each(function () {
+        var no_of_cards = $(this).find("li.retro-card").length;
+        var card_height = $(this).find("li.retro-card .box").height();
+        $(this).find("li.retro-card").each(function (index, card) {
+            console.log('applying css');
+            //start applying below top from third element
+            $(card).css('top', (20 * (index)) + 'px');
+            $(card).css('z-index', (1 * (index)));
+        });
+        $(this).css('height', (no_of_cards * 20) + card_height + 'px')
+    });
+}
+
+
 $(document).on('page:update', function () {
     //add javascript that needs to be applied to dynamically added elements in this block
     //createColorPicker();
@@ -58,26 +73,28 @@ $(document).on('page:update', function () {
         $(this).find('.fa-pencil').addClass('hide');
     });
 
-    $(".retro-cards").droppable({
-        hoverClass: "ui-state-active",
-        drop: function (event, ui) {
-            console.log('=== droppable event start =====');
-            var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
-            console.log($(this).hasClass('retro-cards'));
-            var card_dropped_on_id = $(this).attr('id').split('_')[2];
+    //$(".retro-cards").droppable({
+    //    hoverClass: "ui-state-active",
+    //    drop: function (event, ui) {
+    //        console.log('=== droppable event start =====');
+    //        var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
+    //        console.log('card_dropped_on_id '+ $(this).attr('id'));
+    //        var card_dropped_on_id = $(this).attr('id').split('_')[2];
+    //
+    //        console.log('card_dragged_id '+card_dragged_id);
+    //        console.log('card_dropped_on_id '+card_dropped_on_id);
+    //
+    //        //$.ajax({
+    //        //    type: "PUT",
+    //        //    url: '/merge_cards'+'.js',
+    //        //    data: {'card_to_merge': card_dragged_id, 'card_to_merge_to': card_dropped_on_id}
+    //        //});
+    //
+    //        console.log('=== droppable event end =====');
+    //    }
+    //});
 
-            console.log(card_dragged_id);
-            console.log(card_dropped_on_id);
-
-            //$.ajax({
-            //    type: "PUT",
-            //    url: '/merge_cards'+'.js',
-            //    data: {'card_to_merge': card_dragged_id, 'card_to_merge_to': card_dropped_on_id}
-            //});
-
-            console.log('=== droppable event end =====');
-        }
-    });
+    rearrange_cards();
 
     $(".retro-card").draggable({
         zIndex: 100,
@@ -87,12 +104,13 @@ $(document).on('page:update', function () {
     }).droppable({
         hoverClass: "ui-state-active",
         drop: function (event, ui) {
-            console.log('==== draggable event ==== ');
+            console.log('==== draggable event start ==== ');
             var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
+            console.log('card_dropped_on_id '+ $(this).attr('id'));
             var card_dropped_on_id = $(this).attr('id').split('_')[2];
 
-            console.log(card_dragged_id);
-            console.log(card_dropped_on_id);
+            console.log('card_dragged_id '+card_dragged_id);
+            console.log('card_dropped_on_id '+card_dropped_on_id);
 
             $.ajax({
                 type: "PUT",
@@ -103,44 +121,12 @@ $(document).on('page:update', function () {
             console.log('==== draggable event end==== ');
         }
     });
-
-    //$('.retro-cards').each(function (i) {
-    //    var retro_panel = $('.retro-cards')[i];
-    //    Sortable.create(retro_panel, {
-    //        draggable: ".retro-card",
-    //        animation: 150,
-    //        group: 'shared',
-    //        onAdd: function (evt) {
-    //            var retro_card_id = $(evt.item).attr('id').split('_')[2];
-    //            var from_panel = $(evt.from).attr('id').split('_')[3];
-    //            var to_panel = $(evt.to).attr('id').split('_')[3];
-    //            console.log($(this));
-    //            $.ajax({
-    //                type: "PUT",
-    //                url: "/retro_boards/"+1+"/retro_panels/"+from_panel+"/retro_cards/" + retro_card_id + '.js',
-    //                data: {'retro_card': {'retro_panel_id': to_panel}}
-    //            });
-    //
-    //        }
-    //    });
-    //});
 });
 
 $(document).on('page:change', function () {
     $('select.we_select').select2();
 
-    $("ul.cards").each(function () {
-        var no_of_cards = $(this).find("li.retro-card").length;
-        var card_height = $(this).find("li.retro-card .box").height();
-        $(this).find("li.retro-card").each(function (index, card) {
-            console.log('applying css');
-            //start applying below top from third element
-            $(card).css('top', (20 * (index)) + 'px');
-            $(card).css('z-index', (1 * (index)));
-        });
-
-        $(this).css('height', (no_of_cards * 20) + card_height + 'px')
-    });
+    rearrange_cards();
 
     $('#add_new_panel').on('click', function () {
         $("#add_new_panel_form").submit();
