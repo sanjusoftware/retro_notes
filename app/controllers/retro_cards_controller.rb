@@ -66,17 +66,23 @@ class RetroCardsController < ApplicationController
   end
 
   def merge
-    merge_to = RetroCard.find(params[:card_to_merge_to])
     card_to_merge = RetroCard.find(params[:card_to_merge])
 
-    unless merge_to.matched_retro_cards.map(&:id).include?(card_to_merge.id) || card_to_merge.matched_retro_cards.map(&:id).include?(merge_to.id)
-      merge_to.matched_retro_cards << card_to_merge
-      card_to_merge.retro_panel = merge_to.retro_panel
+    if params[:card_to_merge_to].present?
+      merge_to_card = RetroCard.find(params[:card_to_merge_to])
+      @retro_panel = merge_to_card.retro_panel
+      unless merge_to_card.matched_retro_cards.map(&:id).include?(card_to_merge.id) || card_to_merge.matched_retro_cards.map(&:id).include?(merge_to_card.id)
+        merge_to_card.matched_retro_cards << card_to_merge
+        card_to_merge.retro_panel = @retro_panel
+      end
+    elsif params[:panel_id].present?
+      Match.where(matched_retro_card_id: card_to_merge.id).delete_all
+      @retro_panel = RetroPanel.find(params[:panel_id])
+      card_to_merge.retro_panel = @retro_panel
     end
 
     respond_to do |format|
       if card_to_merge.save
-        @retro_panel = merge_to.retro_panel
         format.json { head :no_content }
         format.js { render 'retro_panels/refresh', status: :created }
       else

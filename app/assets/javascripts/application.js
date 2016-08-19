@@ -73,26 +73,26 @@ $(document).on('page:update', function () {
         $(this).find('.fa-pencil').addClass('hide');
     });
 
-    //$(".retro-cards").droppable({
-    //    hoverClass: "ui-state-active",
-    //    drop: function (event, ui) {
-    //        console.log('=== droppable event start =====');
-    //        var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
-    //        console.log('card_dropped_on_id '+ $(this).attr('id'));
-    //        var card_dropped_on_id = $(this).attr('id').split('_')[2];
-    //
-    //        console.log('card_dragged_id '+card_dragged_id);
-    //        console.log('card_dropped_on_id '+card_dropped_on_id);
-    //
-    //        //$.ajax({
-    //        //    type: "PUT",
-    //        //    url: '/merge_cards'+'.js',
-    //        //    data: {'card_to_merge': card_dragged_id, 'card_to_merge_to': card_dropped_on_id}
-    //        //});
-    //
-    //        console.log('=== droppable event end =====');
-    //    }
-    //});
+    $(".retro-cards").droppable({
+        hoverClass: "ui-state-active",
+        drop: function (event, ui) {
+            console.log('=== droppable event start =====');
+            var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
+            console.log('card_dropped_on_id '+ $(this).attr('id'));
+            var panel_dropped_on_id = $(this).attr('id').split('_')[3];
+
+            console.log('card_dragged_id '+card_dragged_id);
+            console.log('panel_dropped_on_id '+ panel_dropped_on_id);
+
+            $.ajax({
+                type: "PUT",
+                url: '/merge_cards'+'.js',
+                data: {'card_to_merge': card_dragged_id, 'panel_id': panel_dropped_on_id}
+            });
+
+            console.log('=== droppable event end =====');
+        }
+    });
 
     rearrange_cards();
 
