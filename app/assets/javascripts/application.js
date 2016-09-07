@@ -46,21 +46,6 @@ function createColorPicker() {
     });
 }
 
-function rearrange_cards() {
-    $("ul.cards").each(function () {
-        var no_of_cards = $(this).find("li.retro-card").length;
-        var card_height = $(this).find("li.retro-card .box").height();
-        $(this).find("li.retro-card").each(function (index, card) {
-            console.log('applying css');
-            //start applying below top from third element
-            $(card).css('top', (20 * (index)) + 'px');
-            $(card).css('z-index', (1 * (index)));
-        });
-        $(this).css('height', (no_of_cards * 20) + card_height + 'px')
-    });
-}
-
-
 $(document).on('page:update', function () {
     //add javascript that needs to be applied to dynamically added elements in this block
     //createColorPicker();
@@ -77,7 +62,8 @@ $(document).on('page:update', function () {
         hoverClass: "ui-state-active",
         drop: function (event, ui) {
             console.log('=== droppable event start =====');
-            var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
+            var card_dragged = $('.ui-draggable-dragging');
+            var card_dragged_id = card_dragged.attr('id').split('_')[2];
             console.log('card_dropped_on_id '+ $(this).attr('id'));
             var panel_dropped_on_id = $(this).attr('id').split('_')[3];
 
@@ -87,14 +73,15 @@ $(document).on('page:update', function () {
             $.ajax({
                 type: "PUT",
                 url: '/merge_cards'+'.js',
-                data: {'card_to_merge': card_dragged_id, 'panel_id': panel_dropped_on_id}
+                data: {'card_to_merge': card_dragged_id, 'panel_id': panel_dropped_on_id},
+                success: function (){
+                    card_dragged.remove();
+                }
             });
 
             console.log('=== droppable event end =====');
         }
     });
-
-    rearrange_cards();
 
     $(".retro-card").draggable({
         zIndex: 100,
@@ -125,8 +112,6 @@ $(document).on('page:update', function () {
 
 $(document).on('page:change', function () {
     $('select.we_select').select2();
-
-    rearrange_cards();
 
     $('#add_new_panel').on('click', function () {
         $("#add_new_panel_form").submit();

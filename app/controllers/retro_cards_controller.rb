@@ -71,23 +71,15 @@ class RetroCardsController < ApplicationController
     if params[:card_to_merge_to].present?
       merge_to_card = RetroCard.find(params[:card_to_merge_to])
       @retro_panel = merge_to_card.retro_panel
-      unless merge_to_card.matched_retro_cards.map(&:id).include?(card_to_merge.id) || card_to_merge.matched_retro_cards.map(&:id).include?(merge_to_card.id)
-        merge_to_card.matched_retro_cards << card_to_merge
-        card_to_merge.retro_panel = @retro_panel
-      end
+      merge_to_card.merge(card_to_merge)
     elsif params[:panel_id].present?
-      Match.where(matched_retro_card_id: card_to_merge.id).delete_all
       @retro_panel = RetroPanel.find(params[:panel_id])
-      card_to_merge.retro_panel = @retro_panel
+      @retro_panel.add_card(card_to_merge)
     end
 
     respond_to do |format|
-      if card_to_merge.save
-        format.json { head :no_content }
-        format.js { render 'retro_panels/refresh', status: :created }
-      else
-        format.json { render json: card_to_merge.errors, status: :unprocessable_entity }
-      end
+      format.json { head :no_content }
+      format.js { render 'retro_panels/refresh', status: :created }
     end
   end
 
@@ -95,7 +87,6 @@ class RetroCardsController < ApplicationController
     @retro_panel = @retro_card.retro_panel
     @retro_board = @retro_panel.retro_board
 
-    Match.where(matched_retro_card_id: @retro_card.id).delete_all
     @retro_card.destroy
 
     respond_to do |format|

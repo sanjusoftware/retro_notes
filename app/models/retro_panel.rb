@@ -4,7 +4,8 @@ class RetroPanel < ActiveRecord::Base
 
   has_many :retro_cards, :dependent => :destroy
 
-  def direct_cards
-    retro_cards - RetroCard.find(Match.all.map(&:matched_retro_card_id))
+  def add_card card
+    card.retro_panel = self
+    card.save
   end
 end
