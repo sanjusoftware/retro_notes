@@ -22,6 +22,4 @@
 
 .row{:id => 'retro_panels'}
   - @retro_board.retro_panels.each do |retro_panel|
-    -#%span.pull-left.my-colorpicker{:id => retro_panel.id}
-      %i.fa.fa-stop{:style => "color: #{retro_panel.color};"}
     = render :partial => 'retro_boards/retro_panel', locals: {retro_panel: retro_panel}

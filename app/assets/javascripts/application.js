@@ -28,27 +28,8 @@
 
 //= require_tree .
 
-function createColorPicker() {
-    $('.my-colorpicker').each(function (i) {
-        var colorpicker_events = $._data($('.my-colorpicker')[i], "events");
-        var is_already_colorpicker = colorpicker_events && colorpicker_events.changeColor;
-        if (!is_already_colorpicker) {
-            console.log('attaching');
-            $('.my-colorpicker').colorpicker().on('changeColor', function (event) {
-                console.log(event.color.toHex());
-                $.ajax({
-                    type: "PUT",
-                    url: "/retro_boards/another-board/retro_panels/" + $(this).attr('id') + '.js',
-                    data: {'retro_panel': {'color': event.color.toHex()}}
-                });
-            });
-        }
-    });
-}
-
 $(document).on('page:update', function () {
     //add javascript that needs to be applied to dynamically added elements in this block
-    //createColorPicker();
 
     $(".best_in_place").best_in_place();
 
