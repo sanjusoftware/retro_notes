@@ -6,4 +6,8 @@ class Project < ActiveRecord::Base
   belongs_to :user
   has_many :retro_boards, :dependent => :destroy
 
+  def should_generate_new_friendly_id?
+    name_changed?
+  end
+
 end

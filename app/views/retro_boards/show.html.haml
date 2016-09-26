@@ -2,10 +2,10 @@
   %h1.text-center.board-title
     %i.ion.ion-clipboard
     %span.editable
-      = best_in_place @retro_board, :name
+      = best_in_place @retro_board, :name, url: "/retro_boards/#{@retro_board.id}"
       %i.fa.fa-pencil.hide
     %small.editable
-      = best_in_place @retro_board.project, :name, url: retro_board_path(@retro_board), param: 'retro_board[project]'
+      = best_in_place @retro_board.project, :name, url: "/retro_boards/#{@retro_board.id}", param: 'retro_board[project]'
       %i.fa.fa-pencil.hide
 
     %span.pull-right.actions

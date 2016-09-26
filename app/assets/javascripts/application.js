@@ -33,6 +33,15 @@ $(document).on('page:update', function () {
 
     $(".best_in_place").best_in_place();
 
+    $('.best_in_place').bind("ajax:success", function () {
+        if($(this).attr('data-bip-object') == 'retro_board') {
+            var href = window.location.href;
+            var new_url = href.substr(0, href.lastIndexOf('/') + 1) + $(this).text().toLowerCase().replace(/ /g, '-');
+            console.log(new_url);
+            window.location = new_url;
+        }
+    });
+
     $('.editable').on('mouseover', function () {
         $(this).find('.fa-pencil').removeClass('hide');
     }).on('mouseout', function () {

@@ -47,7 +47,7 @@ class RetroBoardsController < ApplicationController
     respond_to do |format|
       if @retro_board.update(params_to_update)
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro board was successfully updated.' }
-        format.json { head :no_content }
+        format.json { respond_with_bip(@retro_board) }
       else
         format.html { render action: 'show' }
         format.json { render json: @retro_board.errors, status: :unprocessable_entity }
