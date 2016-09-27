@@ -1,3 +1,3 @@
-<% publish_to retro_board_retro_panel_path(@retro_panel.retro_board, @retro_panel) do %>
+<% publish_to "/retro_boards/#{@retro_panel.retro_board.id}" do %>
     $('#retro_panel_'+<%=@retro_panel.id%>).replaceWith("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_panel: @retro_panel.reload} %>");
 <% end %>
