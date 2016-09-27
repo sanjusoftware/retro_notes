@@ -25,6 +25,7 @@
 //= require bootstrap-colorpicker
 //= require app
 //= require turbolinks
+//= require private_pub
 
 //= require_tree .
 
