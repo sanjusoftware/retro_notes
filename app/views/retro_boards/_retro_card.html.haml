@@ -1,3 +1,4 @@
+= subscribe_to '/retro_card/update'
 %li.retro-card{id: "retro_card_#{retro_card.id}"}
   .box{:style => "border-top-color : #{retro_card.retro_panel.color}"}
     .box-header
@@ -9,7 +10,8 @@
         = link_to retro_board_retro_panel_retro_card_path(retro_card.retro_panel.retro_board, retro_card.retro_panel, retro_card), :method => :delete, class: 'btn btn-box-tool delete', remote: true do
           %i.fa.fa-trash-o
     .box-body.editable
-      = best_in_place retro_card, :description, as: :textarea, :sanitize => false, :display_with => lambda { |v| v.html_safe }, url: retro_board_retro_panel_retro_card_path(retro_card.retro_panel.retro_board, retro_card.retro_panel, retro_card)
+      = best_in_place retro_card, :description, as: :textarea, :sanitize => false, :display_with => lambda { |v| v.html_safe },
+      url: retro_board_retro_panel_retro_card_path(retro_card.retro_panel.retro_board, retro_card.retro_panel, retro_card), class: 'card_description'
       %i.fa.fa-pencil.hide
     .box-footer
       .box-tools.pull-right

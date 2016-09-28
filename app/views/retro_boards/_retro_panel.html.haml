@@ -1,3 +1,4 @@
+= subscribe_to '/retro_panel/update'
 .col-md-4{:id => "retro_panel_#{retro_panel.id}"}
   %h3.text-center{:style => "color : #{retro_panel.color}"}
     %span.pull-right.actions
@@ -6,7 +7,7 @@
 
     %i.fa.fa-hand-o-down
     %span.editable
-      = best_in_place retro_panel, :name, url: retro_board_retro_panel_path(retro_panel.retro_board, retro_panel)
+      = best_in_place retro_panel, :name, url: retro_board_retro_panel_path(retro_panel.retro_board, retro_panel), class: 'panel_name'
       %i.fa.fa-pencil.hide
     %span{:id => "retro_panel_head_#{retro_panel.id}"}
       = "(#{retro_panel.retro_cards.count})"

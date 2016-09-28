@@ -6,6 +6,7 @@ class RetroPanelsController < ApplicationController
   def update
     respond_to do |format|
       if @retro_panel.update(retro_panel_params)
+        PrivatePub.publish_to '/retro_panel/update', :retro_panel => @retro_panel
         format.json { head :no_content }
         format.js { render 'refresh', status: :ok}
       else

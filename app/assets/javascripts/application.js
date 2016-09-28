@@ -85,8 +85,6 @@ function enable_droppable_card() {
 }
 $(document).on('page:update', function () {
     //add javascript that needs to be applied to dynamically added elements in this block
-    console.log('page:update');
-
     $(".best_in_place").best_in_place();
 
     $('.best_in_place').bind("ajax:success", function () {
@@ -106,10 +104,17 @@ $(document).on('page:update', function () {
 
     enable_droppable_cards();
     enable_droppable_card();
+
+    PrivatePub.subscribe("/retro_card/update", function(data, channel) {
+        $("#retro_card_"+data.retro_card.id).find('span.card_description').text(data.retro_card.description);
+    });
+
+    PrivatePub.subscribe("/retro_panel/update", function(data, channel) {
+        $("#retro_panel_"+data.retro_panel.id).find('span.panel_name').text(data.retro_panel.name);
+    });
 });
 
 $(document).on('page:change', function () {
-    console.log('page:change');
     $('select.we_select').select2();
 
     $('#add_new_panel').on('click', function () {
