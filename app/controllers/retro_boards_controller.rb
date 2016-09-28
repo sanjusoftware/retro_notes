@@ -46,6 +46,7 @@ class RetroBoardsController < ApplicationController
 
     respond_to do |format|
       if @retro_board.update(params_to_update)
+        PrivatePub.publish_to '/retro_board/update', retro_board: @retro_board, project: @retro_board.project
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Retro board was successfully updated.' }
         format.json { respond_with_bip(@retro_board) }
       else

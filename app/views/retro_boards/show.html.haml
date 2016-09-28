@@ -1,12 +1,13 @@
 = subscribe_to "/retro_boards/#{@retro_board.id}"
-%row
+= subscribe_to '/retro_board/update'
+%row{:id => "retro_board_#{@retro_board.id}"}
   %h1.text-center.board-title
     %i.ion.ion-clipboard
     %span.editable
-      = best_in_place @retro_board, :name, url: "/retro_boards/#{@retro_board.id}"
+      = best_in_place @retro_board, :name, url: "/retro_boards/#{@retro_board.id}", class: 'board_name'
       %i.fa.fa-pencil.hide
     %small.editable
-      = best_in_place @retro_board.project, :name, url: "/retro_boards/#{@retro_board.id}", param: 'retro_board[project]'
+      = best_in_place @retro_board.project, :name, url: "/retro_boards/#{@retro_board.id}", param: 'retro_board[project]', class: 'project_name'
       %i.fa.fa-pencil.hide
 
     %span.pull-right.actions

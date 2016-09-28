@@ -83,18 +83,15 @@ function enable_droppable_card() {
         }
     });
 }
+
+function update_browser_url(board_name) {
+    var href = window.location.href;
+    window.location = href.substr(0, href.lastIndexOf('/') + 1) + board_name.toLowerCase().replace(/ /g, '-');
+}
+
 $(document).on('page:update', function () {
     //add javascript that needs to be applied to dynamically added elements in this block
     $(".best_in_place").best_in_place();
-
-    $('.best_in_place').bind("ajax:success", function () {
-        if($(this).attr('data-bip-object') == 'retro_board') {
-            var href = window.location.href;
-            var new_url = href.substr(0, href.lastIndexOf('/') + 1) + $(this).text().toLowerCase().replace(/ /g, '-');
-            console.log(new_url);
-            window.location = new_url;
-        }
-    });
 
     $('.editable').on('mouseover', function () {
         $(this).find('.fa-pencil').removeClass('hide');
@@ -107,6 +104,14 @@ $(document).on('page:update', function () {
 
     PrivatePub.subscribe("/retro_card/update", function(data, channel) {
         $("#retro_card_"+data.retro_card.id).find('span.card_description').text(data.retro_card.description);
+    });
+
+    PrivatePub.subscribe("/retro_board/update", function(data, channel) {
+        console.log(data);
+        var retro_board = $("#retro_board_" + data.retro_board.id);
+        retro_board.find('span.board_name').text(data.retro_board.name);
+        retro_board.find('span.project_name').text(data.project.name);
+        update_browser_url(data.retro_board.name);
     });
 
     PrivatePub.subscribe("/retro_panel/update", function(data, channel) {
