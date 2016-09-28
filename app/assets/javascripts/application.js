@@ -29,28 +29,7 @@
 
 //= require_tree .
 
-$(document).on('page:update', function () {
-    //add javascript that needs to be applied to dynamically added elements in this block
-
-    console.log('page:update');
-
-    $(".best_in_place").best_in_place();
-
-    $('.best_in_place').bind("ajax:success", function () {
-        if($(this).attr('data-bip-object') == 'retro_board') {
-            var href = window.location.href;
-            var new_url = href.substr(0, href.lastIndexOf('/') + 1) + $(this).text().toLowerCase().replace(/ /g, '-');
-            console.log(new_url);
-            window.location = new_url;
-        }
-    });
-
-    $('.editable').on('mouseover', function () {
-        $(this).find('.fa-pencil').removeClass('hide');
-    }).on('mouseout', function () {
-        $(this).find('.fa-pencil').addClass('hide');
-    });
-
+function enable_droppable_cards() {
     $(".retro-cards").droppable({
         hoverClass: "ui-state-active",
         drop: function (event, ui) {
@@ -75,7 +54,9 @@ $(document).on('page:update', function () {
             console.log('=== droppable event end =====');
         }
     });
+}
 
+function enable_droppable_card() {
     $(".retro-card").draggable({
         zIndex: 100,
         opacity: 0.5,
@@ -86,11 +67,11 @@ $(document).on('page:update', function () {
         drop: function (event, ui) {
             console.log('==== draggable event start ==== ');
             var card_dragged_id = $('.ui-draggable-dragging').attr('id').split('_')[2];
-            console.log('card_dropped_on_id '+ $(this).attr('id'));
+            console.log('card_dropped_on_id ' + $(this).attr('id'));
             var card_dropped_on_id = $(this).attr('id').split('_')[2];
 
-            console.log('card_dragged_id '+card_dragged_id);
-            console.log('card_dropped_on_id '+card_dropped_on_id);
+            console.log('card_dragged_id ' + card_dragged_id);
+            console.log('card_dropped_on_id ' + card_dropped_on_id);
 
             $.ajax({
                 type: "PUT",
@@ -101,6 +82,30 @@ $(document).on('page:update', function () {
             console.log('==== draggable event end==== ');
         }
     });
+}
+$(document).on('page:update', function () {
+    //add javascript that needs to be applied to dynamically added elements in this block
+    console.log('page:update');
+
+    $(".best_in_place").best_in_place();
+
+    $('.best_in_place').bind("ajax:success", function () {
+        if($(this).attr('data-bip-object') == 'retro_board') {
+            var href = window.location.href;
+            var new_url = href.substr(0, href.lastIndexOf('/') + 1) + $(this).text().toLowerCase().replace(/ /g, '-');
+            console.log(new_url);
+            window.location = new_url;
+        }
+    });
+
+    $('.editable').on('mouseover', function () {
+        $(this).find('.fa-pencil').removeClass('hide');
+    }).on('mouseout', function () {
+        $(this).find('.fa-pencil').addClass('hide');
+    });
+
+    enable_droppable_cards();
+    enable_droppable_card();
 });
 
 $(document).on('page:change', function () {

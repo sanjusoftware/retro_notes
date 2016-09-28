@@ -3,4 +3,6 @@
         $('#retro_panel_'+<%=@retro_panel_from.id%>).replaceWith("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_panel: @retro_panel_from.reload} %>");
     <% end %>
     $('#retro_panel_'+<%=@retro_panel.id%>).replaceWith("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_panel: @retro_panel.reload} %>");
+    enable_droppable_cards();
+    enable_droppable_card();
 <% end %>
