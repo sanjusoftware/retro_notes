@@ -67,6 +67,7 @@ class RetroCardsController < ApplicationController
 
   def merge
     card_to_merge = RetroCard.find(params[:card_to_merge])
+    @retro_panel_from = card_to_merge.retro_panel
 
     if params[:card_to_merge_to].present?
       merge_to_card = RetroCard.find(params[:card_to_merge_to])

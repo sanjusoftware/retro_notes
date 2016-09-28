@@ -1,3 +1,6 @@
 <% publish_to "/retro_boards/#{@retro_panel.retro_board.id}" do %>
+    <% if @retro_panel_from.present? %>
+        $('#retro_panel_'+<%=@retro_panel_from.id%>).replaceWith("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_panel: @retro_panel_from.reload} %>");
+    <% end %>
     $('#retro_panel_'+<%=@retro_panel.id%>).replaceWith("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_panel: @retro_panel.reload} %>");
 <% end %>

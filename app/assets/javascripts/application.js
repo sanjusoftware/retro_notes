@@ -32,6 +32,8 @@
 $(document).on('page:update', function () {
     //add javascript that needs to be applied to dynamically added elements in this block
 
+    console.log('page:update');
+
     $(".best_in_place").best_in_place();
 
     $('.best_in_place').bind("ajax:success", function () {
@@ -102,6 +104,7 @@ $(document).on('page:update', function () {
 });
 
 $(document).on('page:change', function () {
+    console.log('page:change');
     $('select.we_select').select2();
 
     $('#add_new_panel').on('click', function () {
