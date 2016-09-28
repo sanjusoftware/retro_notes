@@ -7,6 +7,6 @@ test:
   secret_token: "secret"
 
 production:
-  server: "http://example.com/faye"
+  server: "https://retro-notes-faye.herokuapp.com/faye"
   secret_token: "b35b7c9a0550b866c661acff1073e4a9a9fb8c41d74fc371bf5167a50288f785"
-  signature_expiration: 3600 # one hour
+  signature_expiration: 86400 # one hour
