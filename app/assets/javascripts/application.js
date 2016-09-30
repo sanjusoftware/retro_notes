@@ -17,7 +17,6 @@
 // Do not change the above 3 ordering
 
 //= require best_in_place
-//= require zeroclipboard
 //= require bootstrap-sprockets
 //= require jquery.slimscroll
 //= require iCheck

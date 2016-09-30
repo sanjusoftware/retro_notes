@@ -1,5 +1,5 @@
 class RetroCardsController < ApplicationController
-  skip_before_filter :authenticate_user!, :only => [:create, :destroy]
+  skip_before_filter :authenticate_user!
 
   before_action :set_retro_card, only: [:upvote, :downvote, :update, :destroy]
 
@@ -8,11 +8,12 @@ class RetroCardsController < ApplicationController
     @retro_board = @retro_panel.retro_board
 
     respond_to do |format|
-      if current_user.voted_as_when_voted_for @retro_card
+      voter = current_or_guest_user
+      if voter.voted_as_when_voted_for @retro_card
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
         format.js { render json: @retro_card.errors, status: :unprocessable_entity }
       else
-        current_user.up_votes @retro_card
+        voter.up_votes @retro_card
         format.json { head :no_content }
         format.js { render 'retro_panels/refresh', status: :ok }
       end
@@ -25,8 +26,9 @@ class RetroCardsController < ApplicationController
     @retro_board = @retro_panel.retro_board
 
     respond_to do |format|
-      if current_user.voted_as_when_voted_for @retro_card
-        current_user.down_votes @retro_card
+      voter = current_or_guest_user
+      if voter.voted_as_when_voted_for @retro_card
+        voter.down_votes @retro_card
         format.json { head :no_content }
         format.js { render 'retro_panels/refresh', status: :ok }
       else
@@ -43,11 +45,9 @@ class RetroCardsController < ApplicationController
     respond_to do |format|
       if @retro_card.save
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Card was successfully added.' }
-        format.json { render action: 'show', status: :created, location: @retro_card }
         format.js { render 'retro_panels/refresh', status: :created }
       else
         format.html { redirect_to retro_board_path(@retro_board), notice: 'Card could not be added.' }
-        format.json { render json: @retro_card.errors, status: :unprocessable_entity }
         format.js { render json: @retro_card.errors, status: :unprocessable_entity }
       end
     end

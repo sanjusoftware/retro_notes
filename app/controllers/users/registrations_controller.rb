@@ -7,6 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user.email = params[:user][:email]
     @user.save
     super
+    current_or_guest_user
     session['omniauth'] = nil unless @user.new_record?
   end
 

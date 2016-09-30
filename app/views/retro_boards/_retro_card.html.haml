@@ -15,7 +15,7 @@
       %i.fa.fa-pencil.hide
     .box-footer
       .box-tools.pull-right
-        - if current_user && current_user.voted_as_when_voted_for(retro_card)
+        - if current_or_guest_user && current_or_guest_user.voted_as_when_voted_for(retro_card)
           = link_to downvote_retro_board_retro_panel_retro_card_path(retro_card.retro_panel.retro_board, retro_card.retro_panel, retro_card), class: 'btn btn-box-tool upvoted', data: {"original-title" => 'Downvote', 'toggle' => 'tooltip'}, remote: true do
             %i.fa.fa-thumbs-down.plus-one
         - else
