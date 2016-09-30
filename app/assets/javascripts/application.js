@@ -126,13 +126,14 @@ $(document).on('page:change', function () {
         $("#add_new_panel_form").submit();
     });
 
-    new ZeroClipboard($("#copy_to_clipboard")).on("aftercopy", function (event) {
-        $.ajax({
-            type: "GET",
-            url: "/copy_to_clipboard"
-        });
-
+    new Clipboard('#copy_to_clipboard').on('success', function(e) {
+        $('#copy_to_clipboard').attr('title', 'Link copied!')
+            .tooltip('fixTitle')
+            .tooltip('show')
+            .attr('title', "Copy board link")
+            .tooltip('fixTitle');
     });
+
 });
 
 $(document).ajaxError(function (e, xhr, settings) {
