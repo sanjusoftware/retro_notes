@@ -9,13 +9,9 @@ class RetroCardsController < ApplicationController
 
     respond_to do |format|
       voter = current_or_guest_user
-      if voter.voted_as_when_voted_for @retro_card
-        format.json { render json: @retro_card.errors, status: :unprocessable_entity }
-        format.js { render json: @retro_card.errors, status: :unprocessable_entity }
-      else
+      if !voter.voted_as_when_voted_for @retro_card
         voter.up_votes @retro_card
-        format.json { head :no_content }
-        format.js { render 'retro_panels/refresh', status: :ok }
+        format.js { render 'retro_cards/update_votes', status: :ok }
       end
 
     end
@@ -29,11 +25,7 @@ class RetroCardsController < ApplicationController
       voter = current_or_guest_user
       if voter.voted_as_when_voted_for @retro_card
         voter.down_votes @retro_card
-        format.json { head :no_content }
-        format.js { render 'retro_panels/refresh', status: :ok }
-      else
-        format.json { render json: @retro_card.errors, status: :unprocessable_entity }
-        format.js { render json: @retro_card.errors, status: :unprocessable_entity }
+        format.js { render 'retro_cards/update_votes', status: :ok }
       end
     end
   end
@@ -59,7 +51,6 @@ class RetroCardsController < ApplicationController
         @retro_panel = @retro_card.retro_panel
         PrivatePub.publish_to '/retro_card/update', :retro_card => @retro_card
         format.json { head :no_content }
-        format.js { render 'retro_panels/refresh', status: :accepted }
       else
         format.json { render json: @retro_card.errors, status: :unprocessable_entity }
       end

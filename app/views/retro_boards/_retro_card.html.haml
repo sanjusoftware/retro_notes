@@ -1,12 +1,12 @@
 = subscribe_to '/retro_card/update'
+= subscribe_to "/retro_card/#{retro_card.id}"
 %li.retro-card{id: "retro_card_#{retro_card.id}"}
   .box{:style => "border-top-color : #{retro_card.retro_panel.color}"}
     .box-header
-      %span.badge{"data-original-title" => pluralize(retro_card.get_upvotes.size, 'upvote'), "data-toggle" => 'tooltip'}
+      %span.badge{id: 'votes', 'data-original-title' => pluralize(retro_card.get_upvotes.size, 'upvote'), 'data-toggle' => 'tooltip'}
         = retro_card.get_upvotes.size
-        %i.fa.fa-thumbs-up
       .box-tools.pull-right
-        %button.btn.btn-box-tool{"data-widget" => "remove"}
+        %button.btn.btn-box-tool{'data-widget' => 'remove'}
         = link_to retro_board_retro_panel_retro_card_path(retro_card.retro_panel.retro_board, retro_card.retro_panel, retro_card), :method => :delete, class: 'btn btn-box-tool delete', remote: true do
           %i.fa.fa-trash-o
     .box-body.editable

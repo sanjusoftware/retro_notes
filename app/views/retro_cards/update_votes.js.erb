@@ -1,0 +1,8 @@
+<% publish_to "/retro_card/#{@retro_card.id}" do %>
+    $('#retro_card_'+<%=@retro_card.id%>).find('#votes').text(<%=@retro_card.get_upvotes.size%>);
+<% end %>
+
+$('#retro_card_'+<%=@retro_card.id%>).replaceWith("<%= j render partial: 'retro_boards/retro_card', locals: {retro_card: @retro_card} %>");
+enable_droppable_cards();
+enable_droppable_card();
+
