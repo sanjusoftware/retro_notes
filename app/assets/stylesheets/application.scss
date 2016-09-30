@@ -51,10 +51,16 @@
 
   .box-header {
     cursor: move;
+    padding-bottom: 0;
+
+    .btn-box-tool{
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   .plus-one {
-    font-size: 15px;
+    font-size: 13px;
   }
 
   .upvoted {
