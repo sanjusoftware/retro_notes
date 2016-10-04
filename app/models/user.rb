@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable,
          :omniauth_providers => [:github, :google_oauth2]
 
+  GUEST_USER = 'guest'
   acts_as_voter
 
   validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i  }
@@ -22,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def confirmation_required?
-    super && email.present?
+    super && email.present? && full_name != GUEST_USER
   end
 
   def password_required?
@@ -59,4 +60,5 @@ class User < ActiveRecord::Base
       image
     end
   end
+
 end
