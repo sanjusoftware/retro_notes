@@ -88,16 +88,18 @@ function update_browser_url(board_name) {
     window.location = href.substr(0, href.lastIndexOf('/') + 1) + board_name.toLowerCase().replace(/ /g, '-');
 }
 
-$(document).on('page:update', function () {
-    //add javascript that needs to be applied to dynamically added elements in this block
-    $(".best_in_place").best_in_place();
-
+function enable_editable() {
     $('.editable').on('mouseover', function () {
         $(this).find('.fa-pencil').removeClass('hide');
     }).on('mouseout', function () {
         $(this).find('.fa-pencil').addClass('hide');
     });
-
+}
+$(document).on('page:update', function () {
+    console.log("page:update");
+    //add javascript that needs to be applied to dynamically added elements in this block
+    $(".best_in_place").best_in_place();
+    enable_editable();
     enable_droppable_cards();
     enable_droppable_card();
 
@@ -119,6 +121,7 @@ $(document).on('page:update', function () {
 });
 
 $(document).on('page:change', function () {
+    console.log("page:change");
     $('select.we_select').select2();
 
     $('#add_new_panel').on('click', function () {

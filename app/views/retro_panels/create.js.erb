@@ -1,5 +1,6 @@
 <% publish_to "/retro_boards/#{@retro_board.id}" do %>
     $("#retro_panels").append("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_panel: @retro_panel.reload} %>");
+    enable_editable();
 <% end %>
 
 
