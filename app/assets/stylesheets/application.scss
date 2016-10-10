@@ -126,3 +126,9 @@ ul.cards {
   border: 0;
   border-top: 1px dashed #eeeeee;
 }
+
+.intro-message {
+  h3 > small > a {
+    color: white;
+  }
+}
