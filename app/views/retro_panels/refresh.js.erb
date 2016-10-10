@@ -5,4 +5,5 @@
     $('#retro_panel_'+<%=@retro_panel.id%>).replaceWith("<%= j render partial: 'retro_boards/retro_panel', locals: {retro_panel: @retro_panel.reload} %>");
     enable_droppable_cards();
     enable_droppable_card();
+    $('#retro_panel_form_'+<%=@retro_panel.id%>).find("input.retro_panel_form_text").focus();
 <% end %>
